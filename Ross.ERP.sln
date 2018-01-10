@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ross.ERP.Entity", "Ross.ERP.Entity\Ross.ERP.Entity.csproj", "{7EA2FCAB-B9CB-4E2D-BE84-FB89E71B4B0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ross.ERP.PlmSyncTool", "Ross.ERP.WinForm\Ross.ERP.PlmSyncTool.csproj", "{1FB2FC62-A65F-4F19-9CB5-D6E8EB304D3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EA2FCAB-B9CB-4E2D-BE84-FB89E71B4B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA2FCAB-B9CB-4E2D-BE84-FB89E71B4B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA2FCAB-B9CB-4E2D-BE84-FB89E71B4B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA2FCAB-B9CB-4E2D-BE84-FB89E71B4B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB2FC62-A65F-4F19-9CB5-D6E8EB304D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB2FC62-A65F-4F19-9CB5-D6E8EB304D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB2FC62-A65F-4F19-9CB5-D6E8EB304D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB2FC62-A65F-4F19-9CB5-D6E8EB304D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
