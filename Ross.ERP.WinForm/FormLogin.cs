@@ -66,10 +66,10 @@ namespace Ross.ERP.PlmSyncTool
                 
                 Task taskSync = Task.Factory.StartNew(() =>
                 {
-                    //var User = ERP.GetUser(tboxUserName.Text, tboxPassword.Text);
+                    var User = ERP.GetUser(tboxUserName.Text, tboxPassword.Text);
                     string errmsg = "";
-                    Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
-                    if (EpicorSession == null)
+                    //Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
+                    if (User == null)
                     {
                         ProcessDelegate ProDeleg = delegate ()
                         {
@@ -83,14 +83,14 @@ namespace Ross.ERP.PlmSyncTool
                     {
                         ProcessDelegate ProDeleg = delegate ()
                         {
-                            //BasicDatas.CurrentUser = User.DcdUserID;
-                            BasicDatas.CurrentUser = EpicorSession.UserID;
+                            BasicDatas.CurrentUser = User.DcdUserID;
+                            //BasicDatas.CurrentUser = EpicorSession.UserID;
                             labelSysInfo.Text = "登录成功...";
                             btnLogin.Enabled = true;
-                            //Utilities.Log(User.Name + " Login successful");
-                            Utilities.Log(EpicorSession.UserID + " Login successful");
-                            //MainForm mainForm = new MainForm(User.DcdUserID);
-                            MainForm mainForm = new MainForm(EpicorSession.UserID);
+                            Utilities.Log(User.Name + " Login successful");
+                            //Utilities.Log(EpicorSession.UserID + " Login successful");
+                            MainForm mainForm = new MainForm(User.DcdUserID);
+                            //MainForm mainForm = new MainForm(EpicorSession.UserID);
                             mainForm.Show();
                             this.Hide();
                         };
