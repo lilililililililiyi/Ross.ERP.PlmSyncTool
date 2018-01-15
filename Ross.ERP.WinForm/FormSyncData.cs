@@ -232,6 +232,7 @@ namespace Ross.ERP.PlmSyncTool
                     part.PartRev_RevisionNum = RevisionNum;
                     part.PartRev_RevShortDesc = RevisionNum;
                 }
+                part.PartWhse_WarehouseCode = "YJK";
             }
             DataNewPart = Utility.ListToDataTable(data, "_", "#");
             ListMPART = data;

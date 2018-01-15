@@ -51,8 +51,8 @@
             // 
             // btnCloseSync
             // 
-            this.btnCloseSync.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnCloseSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseSync.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCloseSync.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCloseSync.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnCloseSync.Location = new System.Drawing.Point(397, 154);
             this.btnCloseSync.Name = "btnCloseSync";

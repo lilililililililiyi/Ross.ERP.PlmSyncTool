@@ -28,5 +28,6 @@ namespace Ross.ERP.PlmSyncTool.ExportDto
         public string PartRev_EffectiveDate { get; set; }
         public string TrackLots { get; set; }
         public string NonStock { get; set; }
+        public string PartWhse_WarehouseCode { get; set; }
     }
 }

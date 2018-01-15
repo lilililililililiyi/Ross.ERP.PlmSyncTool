@@ -22,7 +22,7 @@ namespace Ross.ERP.PlmSyncTool
         private bool isMouseDown = false;
         private Point FormLocation;
         private Point mouseOffset;
-        private string EpicorSysConfig = Application.StartupPath + @"\LiveSub.sysconfig";
+        private string EpicorSysConfig = Application.StartupPath + @"\Live.sysconfig";
         public FormLogin()
         {
             InitializeComponent();
@@ -65,9 +65,9 @@ namespace Ross.ERP.PlmSyncTool
                 btnLogin.Enabled = false;                
                 
                 Task taskSync = Task.Factory.StartNew(() =>
-                {
-                    var User = ERP.GetUser(tboxUserName.Text, tboxPassword.Text);
+                {                    
                     string errmsg = "";
+                    var User = ERP.GetUser(tboxUserName.Text, tboxPassword.Text);
                     //Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
                     if (User == null)
                     {
@@ -83,13 +83,13 @@ namespace Ross.ERP.PlmSyncTool
                     {
                         ProcessDelegate ProDeleg = delegate ()
                         {
-                            BasicDatas.CurrentUser = User.DcdUserID;
-                            //BasicDatas.CurrentUser = EpicorSession.UserID;
                             labelSysInfo.Text = "登录成功...";
                             btnLogin.Enabled = true;
-                            Utilities.Log(User.Name + " Login successful");
-                            //Utilities.Log(EpicorSession.UserID + " Login successful");
+                            BasicDatas.CurrentUser = User.DcdUserID;
+                            Utilities.Log(User.Name + " Login successful");                            
                             MainForm mainForm = new MainForm(User.DcdUserID);
+                            //BasicDatas.CurrentUser = EpicorSession.UserID;
+                            //Utilities.Log(EpicorSession.UserID + " Login successful");
                             //MainForm mainForm = new MainForm(EpicorSession.UserID);
                             mainForm.Show();
                             this.Hide();

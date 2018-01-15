@@ -62,6 +62,7 @@ namespace Ross.ERP.PlmSyncTool
                             it.PartPlant_NonStock = it.NonStock;
                             it.TrackLots = "TRUE";
                             it.PartPlant_CostMethod = it.CostMethod;
+                            it.PartWhse_WarehouseCode = "YJK";
                         }
                         dt = Utility.ListToDataTable(data, "_", "#");
                         Utility.ExportExcel(dt, SaveFolderPath + "\\PART_UPDATE.xls");
