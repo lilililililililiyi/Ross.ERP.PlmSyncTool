@@ -281,6 +281,7 @@ namespace Ross.ERP.PlmSyncTool
                 {
                     e.Handled = true;
                     var txt = (string)Clipboard.GetData(DataFormats.StringFormat);
+                    txt = txt.Trim().Replace(" ", "");
                     Clipboard.Clear();
                     Clipboard.SetData(DataFormats.StringFormat, txt);
                     rtboxPartNums.Paste();

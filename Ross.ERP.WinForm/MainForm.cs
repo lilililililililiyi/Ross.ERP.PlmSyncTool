@@ -977,8 +977,8 @@ namespace Ross.ERP.PlmSyncTool
                 }
                 this.BeginInvoke(new Action(() =>
                 {
-                    dataGridViewMain.DataSource = BasicDatas.ErpPart;
-                    StatusLabelInfo.Text = "共获取" + BasicDatas.ErpPart.Count + "条数据";
+                    dataGridViewMain.DataSource = lists;
+                    StatusLabelInfo.Text = "共获取" + lists.Count + "条数据";
                     tabControlMain.SelectedIndex = 0;
                     tabControlMain.SelectedTab.Text = "ERP物料档案";
                     CurrentDgv = dataGridViewMain;
