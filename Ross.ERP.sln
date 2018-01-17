@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ross.ERP.PlmSyncTool", "Ros
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "AutoUpdate\AutoUpdate.csproj", "{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ross.ERP.Server", "Ross.ERP.Server\Ross.ERP.Server.csproj", "{FD89B725-A615-4988-88DF-1A46520EC89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ross.ERP.PlmTool", "Ross.ERP.PlmTool\Ross.ERP.PlmTool.csproj", "{293F5303-03B6-4540-88C7-9E6C39525B1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2F92FE-50A8-40CB-916B-F19689AD4CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD89B725-A615-4988-88DF-1A46520EC89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD89B725-A615-4988-88DF-1A46520EC89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD89B725-A615-4988-88DF-1A46520EC89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD89B725-A615-4988-88DF-1A46520EC89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293F5303-03B6-4540-88C7-9E6C39525B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293F5303-03B6-4540-88C7-9E6C39525B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293F5303-03B6-4540-88C7-9E6C39525B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293F5303-03B6-4540-88C7-9E6C39525B1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
