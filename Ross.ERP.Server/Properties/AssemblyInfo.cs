@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Ross.ERP.Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MS")]
+[assembly: AssemblyCompany("Ross Wuxi Equipment Co.,LTD")]
 [assembly: AssemblyProduct("Ross.ERP.Server")]
 [assembly: AssemblyCopyright("Copyright © MS 2018")]
 [assembly: AssemblyTrademark("")]

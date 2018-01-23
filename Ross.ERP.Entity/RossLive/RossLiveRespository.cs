@@ -17,5 +17,24 @@ namespace Ross.ERP.Entity
             Connection = "RossLiveDbContext";
             RLDB = new RossLive.RossLiveDbContext();
         }
+
+        public List<UpdateLogs> GetUptLog(DateTime dt, int top = 1000)
+        {
+            return RLDB.UpdateLogs
+                .Where(o => o.SysTime >= dt)
+                .OrderByDescending(o => o.SysTime).Take(top).ToList();
+        }
+
+        public int AddUptLog(UpdateLogs input)
+        {
+            int result = 0;
+            try
+            {
+                RLDB.UpdateLogs.Add(input);
+                result = RLDB.SaveChanges();
+            }
+            catch { }
+            return result;
+        }
     }
 }
