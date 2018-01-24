@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-using Ross.ERP.Entity;
+﻿using Ross.ERP.Entity;
+using Ross.ERP.Entity.RossLive.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +11,7 @@ namespace Ross.ERP.PlmSyncTool
     public partial class FormLogin : Form
     {
         private ERPRepository ERP;
+        private RossLiveRespository RLD;
         private Utilities Utility;
         private delegate void ProcessDelegate();
         private Entity.DTO.DTO_Config SysConfig;
@@ -33,9 +30,10 @@ namespace Ross.ERP.PlmSyncTool
             if (SysConfig != null)
             {
                 ERP = new ERPRepository(SysConfig.ERPConn);
+                RLD = new RossLiveRespository();
                 labelSysInfo.Text = "";
 
-                if(Utility.CheckUpdate(SysConfig.AutoUpdateURL))
+                if (Utility.CheckUpdate(SysConfig.AutoUpdateURL))
                 {
                     if (MessageBox.Show("系统有新版本！确定立即更新吗？", "系统提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
@@ -43,7 +41,7 @@ namespace Ross.ERP.PlmSyncTool
                         AutoUpdate.StartInfo.FileName = Application.StartupPath + @"\AutoUpdate.bat";
                         AutoUpdate.EnableRaisingEvents = true;
                         AutoUpdate.Start();
-                    }                        
+                    }
                 }
             }
             else
@@ -62,12 +60,12 @@ namespace Ross.ERP.PlmSyncTool
             else
             {
                 labelSysInfo.Text = "登录中...";
-                btnLogin.Enabled = false;                
-                
-                Task taskSync = Task.Factory.StartNew(() =>
-                {                    
-                    string errmsg = "";
-                    var User = ERP.GetUser(tboxUserName.Text, tboxPassword.Text);
+                btnLogin.Enabled = false;
+
+                Task taskSync = Task.Factory.StartNew(async () =>
+                {
+                    string errmsg = "Invalid username or password.";
+                    var User = ERP.GetUser(tboxUserName.Text);
                     //Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
                     if (User == null)
                     {
@@ -81,18 +79,36 @@ namespace Ross.ERP.PlmSyncTool
                     }
                     else
                     {
+                        
+                        List<RossUsers> list = await RLD.GetUsers(User.DcdUserID);
+                        if (list.Count <= 0)
+                        {
+                            RossUsers user = new RossUsers();
+                            user.Password = User.DcdUserID;
+                            user.UserID = User.DcdUserID;
+                            user.UserName = User.DcdUserID;
+                            user.Powers = "#";
+                            RLD.InsertOrUpdateUser(user);
+                        }
+                        var rossUser = RLD.GetUser(User.DcdUserID, tboxPassword.Text);
+                        
                         ProcessDelegate ProDeleg = delegate ()
                         {
-                            labelSysInfo.Text = "登录成功...";
+                            if (rossUser != null)
+                            {
+                                labelSysInfo.Text = "登录成功...";
+                                //BasicDatas.CurrentUser = EpicorSession.UserID;                           
+                                BasicDatas.CurrentUser = User.DcdUserID;
+                                MainForm mainForm = new MainForm();                                
+                                mainForm.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                labelSysInfo.Text = "";
+                                MessageBox.Show(errmsg, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             btnLogin.Enabled = true;
-                            BasicDatas.CurrentUser = User.DcdUserID;
-                            Utilities.Log(User.Name + " Login successful");                            
-                            MainForm mainForm = new MainForm(User.DcdUserID);
-                            //BasicDatas.CurrentUser = EpicorSession.UserID;
-                            //Utilities.Log(EpicorSession.UserID + " Login successful");
-                            //MainForm mainForm = new MainForm(EpicorSession.UserID);
-                            mainForm.Show();
-                            this.Hide();
                         };
                         if (this.InvokeRequired)
                             this.Invoke(ProDeleg);
@@ -110,7 +126,7 @@ namespace Ross.ERP.PlmSyncTool
         {
             Application.Exit();
         }
-        
+
         private void FormLogin_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -170,7 +186,7 @@ namespace Ross.ERP.PlmSyncTool
             }
         }
 
-        public Ice.Core.Session Login(string user, string password,out string errmsg, string company = "")
+        public Ice.Core.Session Login(string user, string password, out string errmsg, string company = "")
         {
             try
             {
@@ -178,7 +194,7 @@ namespace Ross.ERP.PlmSyncTool
                 errmsg = "";
                 return _session;
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 errmsg = err.Message;
                 return null;

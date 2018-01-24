@@ -15,5 +15,7 @@ namespace Ross.ERP.Entity.RossLive.Model
 
         [StringLength(50)]
         public string PowerName { get; set; }
+        public bool InActive { get; set; }
+        public int ParentID { get; set; }
     }
 }

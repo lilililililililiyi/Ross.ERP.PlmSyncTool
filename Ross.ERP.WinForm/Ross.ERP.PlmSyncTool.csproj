@@ -153,6 +153,7 @@
     <Compile Include="ExportDto\MBOM_UD.cs" />
     <Compile Include="ExportDto\MBOO.cs" />
     <Compile Include="ExportDto\MPART.cs" />
+    <Compile Include="ExportDto\POWERS.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FormConfig.cs">
       <SubType>Form</SubType>
@@ -172,6 +173,12 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormModPsw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModPsw.Designer.cs">
+      <DependentUpon>FormModPsw.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSyncData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +196,12 @@
     </Compile>
     <Compile Include="FormUpdatePart.Designer.cs">
       <DependentUpon>FormUpdatePart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUserPower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUserPower.Designer.cs">
+      <DependentUpon>FormUserPower.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities.cs" />
     <Compile Include="MainForm.cs">
@@ -208,6 +221,9 @@
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormModPsw.resx">
+      <DependentUpon>FormModPsw.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSyncData.resx">
       <DependentUpon>FormSyncData.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormUpdatePart.resx">
       <DependentUpon>FormUpdatePart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUserPower.resx">
+      <DependentUpon>FormUserPower.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -334,6 +353,8 @@
     <None Include="Resources\search_16_2.png" />
     <None Include="Resources\chart.png" />
     <None Include="Resources\filter.png" />
+    <None Include="Resources\password.png" />
+    <None Include="Resources\power.png" />
     <Content Include="ross.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

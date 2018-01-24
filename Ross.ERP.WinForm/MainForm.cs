@@ -30,13 +30,13 @@ namespace Ross.ERP.PlmSyncTool
         private DataGridView CurrentDgv;
         private BasicDatas BscData;
 
-        public MainForm(string LoginUser = "")
+        public MainForm()
         {
             InitializeComponent();
             this.Text = Application.ProductName + " v" + Application.ProductVersion;
             Utility = new Utilities();
             SysConfig = Utility.GetSysCfg();
-            SLabelUser.Text = LoginUser;
+            SLabelUser.Text = BasicDatas.CurrentUser;
             CurrentDgv = this.dataGridViewMain;
             if (SysConfig != null)
             {
@@ -74,6 +74,8 @@ namespace Ross.ERP.PlmSyncTool
                 var Company = ERP.GetCompany();
                 StatusLabelCompany.Text = Company.Name;
                 dtPicker.Value = DateTime.Now;
+
+                SetMenus();
             }
             catch
             {
@@ -81,7 +83,42 @@ namespace Ross.ERP.PlmSyncTool
                 SLabelPlmDbName.Text = "PLM数据库未连接";
             }
         }
-
+        private async void SetMenus()
+        {
+            RossLiveRespository RLD = new RossLiveRespository();
+            var user = RLD.GetUser(BasicDatas.CurrentUser);
+            var powers = await RLD.GetPowers();
+            int pid = 0;
+            BtnImportNewBOM.Enabled = user.Powers.Contains("ToolAsync");
+            foreach (ToolStripDropDownButton c in toolStripTop.Items)
+            {
+                if (powers.Where(o => o.PowerIndex == c.Name).Count() <= 0)
+                {
+                    pid = RLD.InsertOrUpdatePower(new Entity.RossLive.Model.RossPowers
+                    {
+                        PowerIndex = c.Name,
+                        PowerName = c.Text,
+                        InActive = false,
+                        ParentID = 0
+                    });
+                }
+                c.Enabled = user.Powers.Contains(c.Name);
+                foreach (ToolStripMenuItem dc in c.DropDownItems)
+                {
+                    if (powers.Where(o => o.PowerIndex == dc.Name).Count() <= 0)
+                    {
+                        RLD.InsertOrUpdatePower(new Entity.RossLive.Model.RossPowers
+                        {
+                            PowerIndex = dc.Name,
+                            PowerName = dc.Text,
+                            InActive = false,
+                            ParentID = pid
+                        });
+                    }
+                    dc.Enabled = user.Powers.Contains(dc.Name);
+                }
+            }
+        }
         private void BtnGetNewMTL_Click(object sender, System.EventArgs e)
         {
             BtnGetNewPartMtl.Enabled = false;
@@ -971,7 +1008,7 @@ namespace Ross.ERP.PlmSyncTool
             Task.Run(() =>
             {
                 var lists = BasicDatas.ErpPart;
-                foreach(var it in lists)
+                foreach (var it in lists)
                 {
                     it.SysRevID = null;
                 }
@@ -986,6 +1023,25 @@ namespace Ross.ERP.PlmSyncTool
                     ProgressBarBot.Value = 100;
                 }));
             });
+        }
+
+        private void ToolStripMenuModPsw_Click(object sender, EventArgs e)
+        {
+            FormModPsw form = new FormModPsw();
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private void ToolStripMenuItemPowers_Click(object sender, EventArgs e)
+        {
+            FormUserPower form = new FormUserPower();
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private void ToolStripMenuItem_PartPlan_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\PartPlan.xltx");
         }
     }
 }

@@ -19,10 +19,10 @@ namespace Ross.ERP.Entity
             Connection = ConnStr;
         }
 
-        public UserFile GetUser(string UserName, string Password = "")
+        public UserFile GetUser(string UserName)
         {
             UserFile model = new UserFile();
-            model = ConstDB.UserFile.Where(o => o.DcdUserID == UserName && o.DcdUserID == Password).FirstOrDefault();
+            model = ConstDB.UserFile.Where(o => o.DcdUserID == UserName).FirstOrDefault();
             return model;
         }
 

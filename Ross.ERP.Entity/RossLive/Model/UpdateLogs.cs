@@ -13,23 +13,29 @@ namespace Ross.ERP.Entity.RossLive.Model
         [StringLength(50)]
         public string LogTitle { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string PartNums { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string ErrorLog { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string CompleteLog { get; set; }
 
         [StringLength(8)]
         public string Status { get; set; }
 
         public DateTime? SysTime { get; set; }
+        [StringLength(50)]
+        public string UserName { get; set; }
+        [StringLength(50)]
+        public string MachineName { get; set; }
 
         public UpdateLogs()
         {
             SysTime = DateTime.Now;
+            UserName = Environment.UserName;
+            MachineName = Environment.MachineName;
         }
     }
 }
