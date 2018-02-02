@@ -31,7 +31,6 @@ namespace Ross.ERP.PlmSyncTool
             {
                 ERP = new ERPRepository(SysConfig.ERPConn);
                 RLD = new RossLiveRespository();
-                labelSysInfo.Text = "";
 
                 if (Utility.CheckUpdate(SysConfig.AutoUpdateURL))
                 {
@@ -46,12 +45,12 @@ namespace Ross.ERP.PlmSyncTool
             }
             else
             {
-                labelSysInfo.Text = "数据库连接出错，请点击设置进行系统配置...";
+                MessageBox.Show("数据库连接出错，请点击设置进行系统配置...", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnLogin.Enabled = false;
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             if (tboxUserName.Text == "" || tboxPassword.Text == "")
             {
@@ -59,61 +58,44 @@ namespace Ross.ERP.PlmSyncTool
             }
             else
             {
-                labelSysInfo.Text = "登录中...";
                 btnLogin.Enabled = false;
-
-                Task taskSync = Task.Factory.StartNew(async () =>
+                string errmsg = "Invalid username or password.";
+                var User = ERP.GetUser(tboxUserName.Text);
+                //Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
+                if (User == null)
                 {
-                    string errmsg = "Invalid username or password.";
-                    var User = ERP.GetUser(tboxUserName.Text);
-                    //Ice.Core.Session EpicorSession = Login(tboxUserName.Text, tboxPassword.Text, out errmsg);
-                    if (User == null)
+                    MessageBox.Show(errmsg, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnLogin.Enabled = true;
+                }
+                else
+                {
+
+                    List<RossUsers> list = await RLD.GetUsers(User.DcdUserID);
+                    if (list.Count <= 0)
                     {
-                        ProcessDelegate ProDeleg = delegate ()
-                        {
-                            MessageBox.Show(errmsg, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            btnLogin.Enabled = true;
-                        };
-                        if (this.InvokeRequired)
-                            this.Invoke(ProDeleg);
+                        RossUsers user = new RossUsers();
+                        user.Password = User.DcdUserID;
+                        user.UserID = User.DcdUserID;
+                        user.UserName = User.DcdUserID;
+                        user.Powers = "#";
+                        RLD.InsertOrUpdateUser(user);
+                    }
+                    var rossUser = RLD.GetUser(User.DcdUserID, tboxPassword.Text);
+
+                    if (rossUser != null)
+                    {
+                        //BasicDatas.CurrentUser = EpicorSession.UserID;                           
+                        BasicDatas.CurrentUser = User.DcdUserID;
+                        MainForm mainForm = new MainForm();
+                        mainForm.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        
-                        List<RossUsers> list = await RLD.GetUsers(User.DcdUserID);
-                        if (list.Count <= 0)
-                        {
-                            RossUsers user = new RossUsers();
-                            user.Password = User.DcdUserID;
-                            user.UserID = User.DcdUserID;
-                            user.UserName = User.DcdUserID;
-                            user.Powers = "#";
-                            RLD.InsertOrUpdateUser(user);
-                        }
-                        var rossUser = RLD.GetUser(User.DcdUserID, tboxPassword.Text);
-                        
-                        ProcessDelegate ProDeleg = delegate ()
-                        {
-                            if (rossUser != null)
-                            {
-                                labelSysInfo.Text = "登录成功...";
-                                //BasicDatas.CurrentUser = EpicorSession.UserID;                           
-                                BasicDatas.CurrentUser = User.DcdUserID;
-                                MainForm mainForm = new MainForm();                                
-                                mainForm.Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                labelSysInfo.Text = "";
-                                MessageBox.Show(errmsg, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            btnLogin.Enabled = true;
-                        };
-                        if (this.InvokeRequired)
-                            this.Invoke(ProDeleg);
+                        MessageBox.Show(errmsg, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }, TaskCreationOptions.None);
+                    btnLogin.Enabled = true;
+                }
             }
         }
 

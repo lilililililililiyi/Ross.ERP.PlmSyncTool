@@ -126,5 +126,30 @@ namespace Ross.ERP.Entity
         {
             return RLDB.RossUsers.Where(o => o.UserID == UserID && o.Password == Password).FirstOrDefault();
         }
+
+        public RossConfig GetRossCfg()
+        {
+            try
+            {
+                return RLDB.RossConfig.FirstOrDefault();
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+        public string UpdateRossCfg(RossConfig input)
+        {
+            try
+            {
+                RLDB.Entry(input).State = EntityState.Modified;
+                RLDB.SaveChanges();
+                return null;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }

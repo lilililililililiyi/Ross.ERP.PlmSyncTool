@@ -59,7 +59,7 @@ namespace Ross.ERP.PlmSyncTool
         /// 程序运行完自动关闭标记
         /// </summary>
         private bool IsAutoClose { get; set; }
-        public FormSyncData(string[] PartNumArr, bool AutoClose = true)
+        public FormSyncData(string[] PartNumArr, bool AutoClose = true, string ConfigUnit = "")
         {
             InitializeComponent();
             IsAutoClose = AutoClose;
@@ -75,7 +75,6 @@ namespace Ross.ERP.PlmSyncTool
             SysConfig = Utility.GetSysCfg();
             if (SysConfig != null)
             {
-                string ConfigUnit = Utility.TxtRead(Application.StartupPath + "\\ConfigUnit.txt");
                 ERP = new ERPRepository(SysConfig.ERPConn);
                 PLM = new PLMRespository(SysConfig.PLMConn, ConfigUnit);
 

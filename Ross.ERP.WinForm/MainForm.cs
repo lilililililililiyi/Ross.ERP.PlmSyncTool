@@ -14,6 +14,7 @@ namespace Ross.ERP.PlmSyncTool
     {
         private ERPRepository ERP;
         private PLMRespository PLM;
+        private RossLiveRespository RLD;
         private FormConfig formConfig;
         private FormUnitSet formUnitSet;
         private FormSyncData formSyncData;
@@ -29,6 +30,7 @@ namespace Ross.ERP.PlmSyncTool
         private bool ProgressRuning = false;
         private DataGridView CurrentDgv;
         private BasicDatas BscData;
+        private Entity.RossLive.Model.RossConfig RossCfg;
 
         public MainForm()
         {
@@ -43,10 +45,10 @@ namespace Ross.ERP.PlmSyncTool
                 FormLoading formLoad = new FormLoading(SysConfig.ERPConn, SysConfig.PLMConn);
                 formLoad.ShowDialog();
                 formLoad.Owner = this;
-
-                string ConfigUnit = Utility.TxtRead(Application.StartupPath + "\\ConfigUnit.txt");
+                RLD = new RossLiveRespository();
+                RossCfg = RLD.GetRossCfg();
                 ERP = new ERPRepository(SysConfig.ERPConn);
-                PLM = new PLMRespository(SysConfig.PLMConn, ConfigUnit);
+                PLM = new PLMRespository(SysConfig.PLMConn, RossCfg.Units);
                 BscData = new BasicDatas(SysConfig.ERPConn, SysConfig.PLMConn);
                 InitData();
             }
@@ -182,7 +184,7 @@ namespace Ross.ERP.PlmSyncTool
             {
                 if (formSyncData == null || formSyncData.IsDisposed)
                 {
-                    formSyncData = new FormSyncData(PartNumArr, AutoClose);
+                    formSyncData = new FormSyncData(PartNumArr, AutoClose, RossCfg.Units);
                     formSyncData.Show();
                     formSyncData.Owner = this;
                 }

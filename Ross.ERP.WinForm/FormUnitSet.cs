@@ -1,25 +1,24 @@
 ﻿using Newtonsoft.Json;
+using Ross.ERP.Entity;
+using Ross.ERP.Entity.RossLive.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ross.ERP.PlmSyncTool
 {
     public partial class FormUnitSet : Form
     {
-        private Utilities Utility;
+        private RossLiveRespository RLD;
+        private RossConfig RossCfg;
         public FormUnitSet()
         {
             InitializeComponent();
-            Utility = new Utilities();            
-            string units = Utility.TxtRead(Application.StartupPath + "\\ConfigUnit.txt");
-            List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(units);
+            RLD = new RossLiveRespository();
+            RossCfg = RLD.GetRossCfg();
+
+            List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(RossCfg.Units);
             if (lists == null)
                 lists = new List<Entity.DTO.DTO_Unit>();
             dataGridViewUnit.DataSource = lists;
@@ -27,30 +26,33 @@ namespace Ross.ERP.PlmSyncTool
 
         private void ToolStripMenuItem_AddNew_Click(object sender, EventArgs e)
         {
-            string units = Utility.TxtRead(Application.StartupPath + "\\ConfigUnit.txt");
-            List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(units);
+            List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(RossCfg.Units);
             if (lists == null)
                 lists = new List<Entity.DTO.DTO_Unit>();
             Entity.DTO.DTO_Unit row = new Entity.DTO.DTO_Unit();
             row.ClassId = "Count";
             lists.Add(row);
             dataGridViewUnit.DataSource = lists;
+            dataGridViewUnit.CurrentCell = dataGridViewUnit.Rows[dataGridViewUnit.Rows.Count - 1].Cells[0];
         }
 
         private void ToolStripMenuItem_Save_Click(object sender, EventArgs e)
         {
             List<Entity.DTO.DTO_Unit> lists = (List<Entity.DTO.DTO_Unit>)dataGridViewUnit.DataSource;
             string contents = JsonConvert.SerializeObject(lists);
-            Utility.TxtWrite(Application.StartupPath + "\\ConfigUnit.txt", contents);
-            MessageBox.Show("保存成功！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RossCfg.Units = contents;
+            string result = RLD.UpdateRossCfg(RossCfg);
+            if (result == null)
+                MessageBox.Show("保存成功！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(result, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ToolStripMenuItem_Del_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("确定删除？", "系统提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                string units = Utility.TxtRead(Application.StartupPath + "\\ConfigUnit.txt");
-                List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(units);
+                List<Entity.DTO.DTO_Unit> lists = JsonConvert.DeserializeObject<List<Entity.DTO.DTO_Unit>>(RossCfg.Units);
                 string[] delItem = new string[dataGridViewUnit.SelectedRows.Count];
                 for (int i = this.dataGridViewUnit.SelectedRows.Count; i > 0; i--)
                 {
@@ -66,10 +68,11 @@ namespace Ross.ERP.PlmSyncTool
                     }
                 }
                 string contents = JsonConvert.SerializeObject(newLists);
-                Utility.TxtWrite(Application.StartupPath + "\\ConfigUnit.txt", contents);
+                RossCfg.Units = contents;
+                RLD.UpdateRossCfg(RossCfg);
                 dataGridViewUnit.DataSource = newLists;
             }
         }
-        
+
     }
 }
