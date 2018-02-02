@@ -238,7 +238,7 @@ namespace Ross.ERP.PlmSyncTool
                 {
                     foreach (var part in PartNums)
                     {
-                        if (ERP.AddStockPart(part.Trim(), BasicDatas.CurrentUser) <= 0)
+                        if (ERP.AddStockPart(part.Trim(), BasicDatas.CurrentUser) <= 0 && num<=10)
                         {
                             Msg.Append("，" + part); num++;
                         }

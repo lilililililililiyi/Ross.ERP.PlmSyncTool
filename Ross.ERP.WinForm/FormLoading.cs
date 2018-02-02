@@ -130,7 +130,7 @@ namespace Ross.ERP.PlmSyncTool
             }
             if (!taskCompleted)
             {
-                MessageBox.Show("数据正在加载，不能关闭？", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("数据正在加载，不能关闭！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 e.Cancel = true;
             }
             else

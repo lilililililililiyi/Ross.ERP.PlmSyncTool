@@ -1043,5 +1043,38 @@ namespace Ross.ERP.PlmSyncTool
         {
             System.Diagnostics.Process.Start(Application.StartupPath + "\\PartPlan.xltx");
         }
+
+        private void ToolStripMenuItem_UnitBug_Click(object sender, EventArgs e)
+        {
+            //var datas = (from a in PLM_Part
+            //             join b in BasicDatas.ErpPart.Where(o => o.InActive == false) on a.PartNum equals b.PartNum
+            //             where a.IUM.ToUpper() != b.IUM.ToUpper()
+            //             select new { plm = a }).ToList();                     
+
+            ProgressRuning = true;
+            ProgressBarBot.Value = 0;
+            Task.Run(() =>
+            {
+                var PLM_Part = PLM.GetNewPLMPart(dtPicker.Value);
+                List<Entity.DTO.DTO_MPART> datas = new List<Entity.DTO.DTO_MPART>();
+                foreach (var plmpart in PLM_Part)
+                {
+                    if (BasicDatas.ErpPart.Where(o => o.InActive == false && o.PartNum == plmpart.PartNum && o.IUM.ToUpper() != plmpart.IUM.ToUpper()).Count() > 0)
+                    {
+                        datas.Add(plmpart);
+                    }
+                }
+                this.BeginInvoke(new Action(() =>
+                {
+                    dataGridViewMain.DataSource = datas;
+                    StatusLabelInfo.Text = "共获取" + datas.Count + "条数据";
+                    tabControlMain.SelectedTab.Text = "单位异常数据";
+                    tabControlMain.SelectedIndex = 0;
+                    CurrentDgv = dataGridViewMain;
+                    ProgressRuning = false;
+                    ProgressBarBot.Value = 100;
+                }));
+            });
+        }
     }
 }

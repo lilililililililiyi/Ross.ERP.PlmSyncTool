@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoading));
             this.progressBarLoad = new System.Windows.Forms.ProgressBar();
             this.processLoad = new System.Diagnostics.Process();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
@@ -63,7 +62,7 @@
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelStatus.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelStatus.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelStatus.Location = new System.Drawing.Point(12, 9);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(101, 17);
@@ -74,17 +73,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(304, 70);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.progressBarLoad);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLoading";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "基础数据加载中......";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "加载中...";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLoading_FormClosing);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormLoading_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormLoading_MouseMove);
