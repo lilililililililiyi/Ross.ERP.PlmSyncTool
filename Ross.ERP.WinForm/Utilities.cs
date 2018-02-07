@@ -354,7 +354,7 @@ namespace Ross.ERP.PlmSyncTool
                 }
                 else
                 {
-                    return Entity.BasicDatas.ErpPart.Where(o => o.PartNum == PartNum && o.NonStock).Count() > 0;
+                    return Entity.BasicDatas.StockPart.Where(o => o.PartNum == PartNum).Count() <= 0;
                 }
             }
             catch

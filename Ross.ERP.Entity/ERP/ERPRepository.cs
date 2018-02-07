@@ -26,13 +26,15 @@ namespace Ross.ERP.Entity
             return model;
         }
 
-        public List<Part> GetPart(string TypeCode = "")
+        public List<Part> GetPart(string TypeCode = "", string PartNum = "")
         {
             List<Part> lists = new List<Part>();
             using (ERP.ERPDbContext ERPDB = new ERP.ERPDbContext(Connection))
             {
                 if (!string.IsNullOrEmpty(TypeCode))
                     lists = ERPDB.Part.Where(o => o.TypeCode == TypeCode).ToList();
+                else if (!string.IsNullOrEmpty(PartNum))
+                    lists = ERPDB.Part.Where(o => o.PartNum == PartNum).ToList();
                 else
                     lists = ERPDB.Part.ToList();
             }
@@ -51,7 +53,6 @@ namespace Ross.ERP.Entity
             }
             return lists;
         }
-
         public List<PartOpr> GetPartOpr(string PartNum = "")
         {
             List<PartOpr> lists = new List<PartOpr>();
@@ -92,10 +93,11 @@ namespace Ross.ERP.Entity
         /// <returns></returns>
         public void GetERPBOM(string PartNum, List<DTO_MBOM> ERPBOM, bool isChild = true)
         {
+            var PartRev = BasicDatas.ErpPartRev.Where(o => o.PartNum == PartNum).OrderByDescending(o => o.EffectiveDate).FirstOrDefault();
             var lists = from a in BasicDatas.ErpPartMtl
                         join part in BasicDatas.ErpPart on a.PartNum equals part.PartNum
                         join partMtl in BasicDatas.ErpPart on a.MtlPartNum equals partMtl.PartNum
-                        where a.PartNum == PartNum
+                        where a.PartNum == PartNum && a.RevisionNum == PartRev.RevisionNum
                         select new { a, part, partMtl };
             foreach (var item in lists)
             {
@@ -111,7 +113,7 @@ namespace Ross.ERP.Entity
                 obj.PullAsAsm = item.partMtl.TypeCode == "M" ? "TRUE" : "FALSE";
                 obj.QtyPer = item.a.QtyPer;
                 obj.RelatedOperation = 10;
-                obj.RevisionNum = "A";
+                obj.RevisionNum = item.a.RevisionNum;
                 obj.ViewAsAsm = item.partMtl.TypeCode == "M" ? "TRUE" : "FALSE";
                 obj.Source = item.partMtl.TypeCode == "M" ? "自制件" : "外购件";
                 ERPBOM.Add(obj);
@@ -410,6 +412,38 @@ namespace Ross.ERP.Entity
         public IList<StockPart> GetStockPart()
         {
             return ConstDB.StockPart.ToList();
+        }
+        /// <summary>
+        /// 修复版本生效时间相同的自制件
+        /// </summary>
+        /// <param name="PartNum">物料编码</param>
+        /// <param name="RevNum">最新版本号</param>
+        public void ChgPartRevEffectDate(string PartNum, string RevNum)
+        {
+            var PartRevs = ConstDB.PartRev.Where(o => o.PartNum == PartNum).OrderByDescending(o => o.EffectiveDate).ToList();
+            if (PartRevs.Count > 1)
+            {
+                var FirstRev = PartRevs.Where(o => o.RevisionNum == RevNum).FirstOrDefault();
+                if (FirstRev != null)
+                {
+                    DateTime dt = FirstRev.EffectiveDate.Value;
+                    var Lists = PartRevs.Where(o => o.SysRowID != FirstRev.SysRowID).OrderByDescending(o => o.EffectiveDate).ToList();
+                    foreach (var item in Lists)
+                    {
+                        try
+                        {
+                            //更改生效时间
+                            ConstDB.Configuration.ValidateOnSaveEnabled = false;
+                            item.EffectiveDate = dt.AddDays(-1);
+                            ConstDB.Entry(item).State = EntityState.Modified;
+                            ConstDB.SaveChanges();
+                            ConstDB.Configuration.ValidateOnSaveEnabled = true;
+                        }
+                        catch { }
+                        dt = dt.AddDays(-1);
+                    }
+                }
+            }
         }
     }
 }

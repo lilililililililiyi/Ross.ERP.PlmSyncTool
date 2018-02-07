@@ -43,26 +43,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DGVBOM = new System.Windows.Forms.DataGridView();
             this.toolStripTop = new System.Windows.Forms.ToolStrip();
-            this.tboxPartNum = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.statusStripBot = new System.Windows.Forms.StatusStrip();
-            this.StatusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ProgressBarBot = new System.Windows.Forms.ToolStripProgressBar();
-            this.StatusLabelCompany = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StatusLabelTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SLabelErpDbName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SLabelPlmDbName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SLabelUser = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblAutoUpdate = new System.Windows.Forms.Label();
-            this.dtPicker = new System.Windows.Forms.DateTimePicker();
-            this.timerOpr = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStripTree = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.notifyIconMain = new System.Windows.Forms.NotifyIcon(this.components);
-            this.timerProg = new System.Windows.Forms.Timer(this.components);
-            this.timerAutoSync = new System.Windows.Forms.Timer(this.components);
-            this.timerAutoCache = new System.Windows.Forms.Timer(this.components);
             this.DropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuExist = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuModPsw = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +56,6 @@
             this.toolDropbtnErp = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItem_GetERPBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropBtnPartOpr = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItem_Jobs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropBtnPartMtl = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropBtnPart = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropExport = new System.Windows.Forms.ToolStripDropDownButton();
@@ -96,17 +75,40 @@
             this.ToolStripMenuItem_ClearLog = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_SyncLog = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemPowers = new System.Windows.Forms.ToolStripMenuItem();
+            this.tboxPartNum = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.statusStripBot = new System.Windows.Forms.StatusStrip();
+            this.StatusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ProgressBarBot = new System.Windows.Forms.ToolStripProgressBar();
+            this.StatusLabelCompany = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusLabelTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SLabelErpDbName = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SLabelPlmDbName = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SLabelUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.labelload = new System.Windows.Forms.Label();
+            this.lblAutoUpdate = new System.Windows.Forms.Label();
+            this.dtPicker = new System.Windows.Forms.DateTimePicker();
             this.BtnImportNewBOM = new System.Windows.Forms.Button();
             this.BtnGetNewPartMtl = new System.Windows.Forms.Button();
+            this.timerOpr = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_CopyToExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Bom = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ERPBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ClearResult = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripTree = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_ExBom = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ExWGJ = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ExZZJ = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ToFactBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_ClearTree = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIconMain = new System.Windows.Forms.NotifyIcon(this.components);
+            this.timerProg = new System.Windows.Forms.Timer(this.components);
+            this.timerAutoSync = new System.Windows.Forms.Timer(this.components);
+            this.timerAutoCache = new System.Windows.Forms.Timer(this.components);
+            this.toolDropBtnProject = new System.Windows.Forms.ToolStripDropDownButton();
+            this.ToolStripMenuItem_Rev = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitCont)).BeginInit();
             this.splitCont.Panel1.SuspendLayout();
@@ -296,6 +298,7 @@
             this.DropDownButtonFile,
             this.toolDropBtnPlm,
             this.toolDropbtnErp,
+            this.toolDropBtnProject,
             this.toolDropExport,
             this.toolBtnReport,
             this.toolBtnStart,
@@ -305,6 +308,311 @@
             this.toolStripTop.Size = new System.Drawing.Size(784, 25);
             this.toolStripTop.TabIndex = 4;
             this.toolStripTop.Text = "toolStrip1";
+            // 
+            // DropDownButtonFile
+            // 
+            this.DropDownButtonFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DropDownButtonFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuExist,
+            this.ToolStripMenuModPsw});
+            this.DropDownButtonFile.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.Folder;
+            this.DropDownButtonFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DropDownButtonFile.Name = "DropDownButtonFile";
+            this.DropDownButtonFile.Size = new System.Drawing.Size(45, 22);
+            this.DropDownButtonFile.Text = "用户";
+            // 
+            // ToolStripMenuExist
+            // 
+            this.ToolStripMenuExist.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.quit;
+            this.ToolStripMenuExist.Name = "ToolStripMenuExist";
+            this.ToolStripMenuExist.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuExist.Text = "退出";
+            this.ToolStripMenuExist.Click += new System.EventHandler(this.ToolStripMenuExist_Click);
+            // 
+            // ToolStripMenuModPsw
+            // 
+            this.ToolStripMenuModPsw.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.password;
+            this.ToolStripMenuModPsw.Name = "ToolStripMenuModPsw";
+            this.ToolStripMenuModPsw.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuModPsw.Text = "修改密码";
+            this.ToolStripMenuModPsw.Click += new System.EventHandler(this.ToolStripMenuModPsw_Click);
+            // 
+            // toolDropBtnPlm
+            // 
+            this.toolDropBtnPlm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolDropBtnPlm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BtnGetNewBOM,
+            this.BtnGetNewBOO,
+            this.BtnGetNewMTL,
+            this.ToolStripMenuItem_ChkBOM,
+            this.ToolStripMenuItem_UpdateParts,
+            this.ToolStripMenuItem_UnitBug});
+            this.toolDropBtnPlm.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.PLM;
+            this.toolDropBtnPlm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDropBtnPlm.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolDropBtnPlm.Name = "toolDropBtnPlm";
+            this.toolDropBtnPlm.Size = new System.Drawing.Size(46, 22);
+            this.toolDropBtnPlm.Text = "PLM";
+            // 
+            // BtnGetNewBOM
+            // 
+            this.BtnGetNewBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.tree;
+            this.BtnGetNewBOM.Name = "BtnGetNewBOM";
+            this.BtnGetNewBOM.Size = new System.Drawing.Size(154, 22);
+            this.BtnGetNewBOM.Text = "获取BOM";
+            this.BtnGetNewBOM.Click += new System.EventHandler(this.toolDropGetNewBOM_Click);
+            // 
+            // BtnGetNewBOO
+            // 
+            this.BtnGetNewBOO.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.flow;
+            this.BtnGetNewBOO.Name = "BtnGetNewBOO";
+            this.BtnGetNewBOO.Size = new System.Drawing.Size(154, 22);
+            this.BtnGetNewBOO.Text = "获取BOO";
+            this.BtnGetNewBOO.Click += new System.EventHandler(this.BtnGetNewBOO_Click);
+            // 
+            // BtnGetNewMTL
+            // 
+            this.BtnGetNewMTL.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
+            this.BtnGetNewMTL.Name = "BtnGetNewMTL";
+            this.BtnGetNewMTL.Size = new System.Drawing.Size(154, 22);
+            this.BtnGetNewMTL.Text = "获取物料信息";
+            this.BtnGetNewMTL.Click += new System.EventHandler(this.BtnGetNewMTL_Click);
+            // 
+            // ToolStripMenuItem_ChkBOM
+            // 
+            this.ToolStripMenuItem_ChkBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
+            this.ToolStripMenuItem_ChkBOM.Name = "ToolStripMenuItem_ChkBOM";
+            this.ToolStripMenuItem_ChkBOM.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_ChkBOM.Text = "检测BOM更新";
+            this.ToolStripMenuItem_ChkBOM.Click += new System.EventHandler(this.ToolStripMenuItem_ChkBOM_Click);
+            // 
+            // ToolStripMenuItem_UpdateParts
+            // 
+            this.ToolStripMenuItem_UpdateParts.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.refresh;
+            this.ToolStripMenuItem_UpdateParts.Name = "ToolStripMenuItem_UpdateParts";
+            this.ToolStripMenuItem_UpdateParts.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_UpdateParts.Text = "批量更新物料";
+            this.ToolStripMenuItem_UpdateParts.Click += new System.EventHandler(this.ToolStripMenuItem_UpdateParts_Click);
+            // 
+            // ToolStripMenuItem_UnitBug
+            // 
+            this.ToolStripMenuItem_UnitBug.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.bug;
+            this.ToolStripMenuItem_UnitBug.Name = "ToolStripMenuItem_UnitBug";
+            this.ToolStripMenuItem_UnitBug.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_UnitBug.Text = "物料单位异常";
+            this.ToolStripMenuItem_UnitBug.Click += new System.EventHandler(this.ToolStripMenuItem_UnitBug_Click);
+            // 
+            // toolDropbtnErp
+            // 
+            this.toolDropbtnErp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolDropbtnErp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_GetERPBOM,
+            this.toolDropBtnPartOpr,
+            this.toolDropBtnPartMtl,
+            this.toolDropBtnPart});
+            this.toolDropbtnErp.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
+            this.toolDropbtnErp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDropbtnErp.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolDropbtnErp.Name = "toolDropbtnErp";
+            this.toolDropbtnErp.Size = new System.Drawing.Size(43, 22);
+            this.toolDropbtnErp.Text = "ERP";
+            // 
+            // ToolStripMenuItem_GetERPBOM
+            // 
+            this.ToolStripMenuItem_GetERPBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.tree;
+            this.ToolStripMenuItem_GetERPBOM.Name = "ToolStripMenuItem_GetERPBOM";
+            this.ToolStripMenuItem_GetERPBOM.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_GetERPBOM.Text = "获取BOM";
+            this.ToolStripMenuItem_GetERPBOM.Click += new System.EventHandler(this.ToolStripMenuItem_GetERPBOM_Click);
+            // 
+            // toolDropBtnPartOpr
+            // 
+            this.toolDropBtnPartOpr.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.flow;
+            this.toolDropBtnPartOpr.Name = "toolDropBtnPartOpr";
+            this.toolDropBtnPartOpr.Size = new System.Drawing.Size(154, 22);
+            this.toolDropBtnPartOpr.Text = "获取BOO";
+            this.toolDropBtnPartOpr.Click += new System.EventHandler(this.toolDropBtnPartOpr_Click);
+            // 
+            // toolDropBtnPartMtl
+            // 
+            this.toolDropBtnPartMtl.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.view;
+            this.toolDropBtnPartMtl.Name = "toolDropBtnPartMtl";
+            this.toolDropBtnPartMtl.Size = new System.Drawing.Size(154, 22);
+            this.toolDropBtnPartMtl.Text = "BOM物料查询";
+            this.toolDropBtnPartMtl.Click += new System.EventHandler(this.toolDropBtnPartMtl_Click);
+            // 
+            // toolDropBtnPart
+            // 
+            this.toolDropBtnPart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
+            this.toolDropBtnPart.Name = "toolDropBtnPart";
+            this.toolDropBtnPart.Size = new System.Drawing.Size(154, 22);
+            this.toolDropBtnPart.Text = "物料档案查询";
+            this.toolDropBtnPart.Click += new System.EventHandler(this.toolDropBtnPart_Click);
+            // 
+            // toolDropExport
+            // 
+            this.toolDropExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolDropExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BtnExport_NewPart,
+            this.BtnExport_NewBom,
+            this.ToolStripMenuItem_ResetCache});
+            this.toolDropExport.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.operate;
+            this.toolDropExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDropExport.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolDropExport.Name = "toolDropExport";
+            this.toolDropExport.Size = new System.Drawing.Size(45, 22);
+            this.toolDropExport.Text = "操作";
+            // 
+            // BtnExport_NewPart
+            // 
+            this.BtnExport_NewPart.Enabled = false;
+            this.BtnExport_NewPart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
+            this.BtnExport_NewPart.Name = "BtnExport_NewPart";
+            this.BtnExport_NewPart.Size = new System.Drawing.Size(152, 22);
+            this.BtnExport_NewPart.Text = "导出新物料";
+            this.BtnExport_NewPart.Click += new System.EventHandler(this.BtnExport_NewPart_Click);
+            // 
+            // BtnExport_NewBom
+            // 
+            this.BtnExport_NewBom.Enabled = false;
+            this.BtnExport_NewBom.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
+            this.BtnExport_NewBom.Name = "BtnExport_NewBom";
+            this.BtnExport_NewBom.Size = new System.Drawing.Size(152, 22);
+            this.BtnExport_NewBom.Text = "导出新BOM";
+            this.BtnExport_NewBom.Click += new System.EventHandler(this.BtnExport_NewBom_Click);
+            // 
+            // ToolStripMenuItem_ResetCache
+            // 
+            this.ToolStripMenuItem_ResetCache.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.refresh;
+            this.ToolStripMenuItem_ResetCache.Name = "ToolStripMenuItem_ResetCache";
+            this.ToolStripMenuItem_ResetCache.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_ResetCache.Text = "重置本地缓存";
+            this.ToolStripMenuItem_ResetCache.Click += new System.EventHandler(this.ToolStripMenuItem_ResetCache_Click);
+            // 
+            // toolBtnReport
+            // 
+            this.toolBtnReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolBtnReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_MtlAna,
+            this.ToolStripMenuItem_PartPlan});
+            this.toolBtnReport.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReport.Image")));
+            this.toolBtnReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBtnReport.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolBtnReport.Name = "toolBtnReport";
+            this.toolBtnReport.Size = new System.Drawing.Size(45, 22);
+            this.toolBtnReport.Text = "报表";
+            // 
+            // ToolStripMenuItem_MtlAna
+            // 
+            this.ToolStripMenuItem_MtlAna.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.chart;
+            this.ToolStripMenuItem_MtlAna.Name = "ToolStripMenuItem_MtlAna";
+            this.ToolStripMenuItem_MtlAna.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_MtlAna.Text = "物料分析";
+            this.ToolStripMenuItem_MtlAna.Click += new System.EventHandler(this.ToolStripMenuItem_MtlAna_Click);
+            // 
+            // ToolStripMenuItem_PartPlan
+            // 
+            this.ToolStripMenuItem_PartPlan.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
+            this.ToolStripMenuItem_PartPlan.Name = "ToolStripMenuItem_PartPlan";
+            this.ToolStripMenuItem_PartPlan.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_PartPlan.Text = "物料计划";
+            this.ToolStripMenuItem_PartPlan.Click += new System.EventHandler(this.ToolStripMenuItem_PartPlan_Click);
+            // 
+            // toolBtnStart
+            // 
+            this.toolBtnStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolBtnStart.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Start,
+            this.ToolStripMenuItem_Stop});
+            this.toolBtnStart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.start;
+            this.toolBtnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBtnStart.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolBtnStart.Name = "toolBtnStart";
+            this.toolBtnStart.Size = new System.Drawing.Size(45, 22);
+            this.toolBtnStart.Text = "启动";
+            // 
+            // ToolStripMenuItem_Start
+            // 
+            this.ToolStripMenuItem_Start.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.start;
+            this.ToolStripMenuItem_Start.Name = "ToolStripMenuItem_Start";
+            this.ToolStripMenuItem_Start.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Start.Text = "启动";
+            this.ToolStripMenuItem_Start.Click += new System.EventHandler(this.ToolStripMenuItem_Start_Click);
+            // 
+            // ToolStripMenuItem_Stop
+            // 
+            this.ToolStripMenuItem_Stop.Enabled = false;
+            this.ToolStripMenuItem_Stop.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.stop;
+            this.ToolStripMenuItem_Stop.Name = "ToolStripMenuItem_Stop";
+            this.ToolStripMenuItem_Stop.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Stop.Text = "停止";
+            this.ToolStripMenuItem_Stop.Click += new System.EventHandler(this.ToolStripMenuItem_Stop_Click);
+            // 
+            // toolDropSetting
+            // 
+            this.toolDropSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolDropSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Unit,
+            this.ToolStripMenuItem_Sys,
+            this.ToolStripMenuItem_OpenLog,
+            this.ToolStripMenuItem_SyncLog,
+            this.ToolStripMenuItemPowers});
+            this.toolDropSetting.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.setting;
+            this.toolDropSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDropSetting.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolDropSetting.Name = "toolDropSetting";
+            this.toolDropSetting.Size = new System.Drawing.Size(45, 22);
+            this.toolDropSetting.Text = "设置";
+            // 
+            // ToolStripMenuItem_Unit
+            // 
+            this.ToolStripMenuItem_Unit.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
+            this.ToolStripMenuItem_Unit.Name = "ToolStripMenuItem_Unit";
+            this.ToolStripMenuItem_Unit.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Unit.Text = "单位设置";
+            this.ToolStripMenuItem_Unit.Click += new System.EventHandler(this.ToolStripMenuItem_Unit_Click);
+            // 
+            // ToolStripMenuItem_Sys
+            // 
+            this.ToolStripMenuItem_Sys.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.setting;
+            this.ToolStripMenuItem_Sys.Name = "ToolStripMenuItem_Sys";
+            this.ToolStripMenuItem_Sys.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Sys.Text = "系统设置";
+            this.ToolStripMenuItem_Sys.Click += new System.EventHandler(this.ToolStripMenuItem_Sys_Click);
+            // 
+            // ToolStripMenuItem_OpenLog
+            // 
+            this.ToolStripMenuItem_OpenLog.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_ClearLog});
+            this.ToolStripMenuItem_OpenLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.log;
+            this.ToolStripMenuItem_OpenLog.Name = "ToolStripMenuItem_OpenLog";
+            this.ToolStripMenuItem_OpenLog.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_OpenLog.Text = "系统日志";
+            this.ToolStripMenuItem_OpenLog.Click += new System.EventHandler(this.ToolStripMenuItem_OpenLog_Click);
+            // 
+            // ToolStripMenuItem_ClearLog
+            // 
+            this.ToolStripMenuItem_ClearLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.clear;
+            this.ToolStripMenuItem_ClearLog.Name = "ToolStripMenuItem_ClearLog";
+            this.ToolStripMenuItem_ClearLog.Size = new System.Drawing.Size(124, 22);
+            this.ToolStripMenuItem_ClearLog.Text = "清除日志";
+            this.ToolStripMenuItem_ClearLog.Click += new System.EventHandler(this.ToolStripMenuItem_ClearLog_Click);
+            // 
+            // ToolStripMenuItem_SyncLog
+            // 
+            this.ToolStripMenuItem_SyncLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.logs;
+            this.ToolStripMenuItem_SyncLog.Name = "ToolStripMenuItem_SyncLog";
+            this.ToolStripMenuItem_SyncLog.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_SyncLog.Text = "数据同步日志";
+            this.ToolStripMenuItem_SyncLog.Click += new System.EventHandler(this.ToolStripMenuItem_SyncLog_Click);
+            // 
+            // ToolStripMenuItemPowers
+            // 
+            this.ToolStripMenuItemPowers.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.power;
+            this.ToolStripMenuItemPowers.Name = "ToolStripMenuItemPowers";
+            this.ToolStripMenuItemPowers.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItemPowers.Text = "权限设置";
+            this.ToolStripMenuItemPowers.Click += new System.EventHandler(this.ToolStripMenuItemPowers_Click);
             // 
             // tboxPartNum
             // 
@@ -399,6 +707,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.SystemColors.Control;
+            this.panel3.Controls.Add(this.labelload);
             this.panel3.Controls.Add(this.lblAutoUpdate);
             this.panel3.Controls.Add(this.dtPicker);
             this.panel3.Controls.Add(this.BtnImportNewBOM);
@@ -409,16 +718,26 @@
             this.panel3.Size = new System.Drawing.Size(784, 32);
             this.panel3.TabIndex = 7;
             // 
+            // labelload
+            // 
+            this.labelload.AutoSize = true;
+            this.labelload.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.bar;
+            this.labelload.Location = new System.Drawing.Point(349, 10);
+            this.labelload.Name = "labelload";
+            this.labelload.Size = new System.Drawing.Size(29, 12);
+            this.labelload.TabIndex = 9;
+            this.labelload.Text = "　　";
+            // 
             // lblAutoUpdate
             // 
             this.lblAutoUpdate.AutoSize = true;
             this.lblAutoUpdate.Font = new System.Drawing.Font("Verdana", 8F);
             this.lblAutoUpdate.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblAutoUpdate.Location = new System.Drawing.Point(349, 11);
+            this.lblAutoUpdate.Location = new System.Drawing.Point(384, 9);
             this.lblAutoUpdate.Name = "lblAutoUpdate";
-            this.lblAutoUpdate.Size = new System.Drawing.Size(90, 13);
+            this.lblAutoUpdate.Size = new System.Drawing.Size(108, 13);
             this.lblAutoUpdate.TabIndex = 8;
-            this.lblAutoUpdate.Text = "Cache update!";
+            this.lblAutoUpdate.Text = "Cache updating...";
             // 
             // dtPicker
             // 
@@ -430,368 +749,6 @@
             this.dtPicker.Size = new System.Drawing.Size(124, 22);
             this.dtPicker.TabIndex = 7;
             this.dtPicker.Value = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
-            // 
-            // timerOpr
-            // 
-            this.timerOpr.Enabled = true;
-            this.timerOpr.Tick += new System.EventHandler(this.timerOpr_Tick);
-            // 
-            // contextMenuStripMain
-            // 
-            this.contextMenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_CopyToExcel,
-            this.ToolStripMenuItem_Bom,
-            this.ToolStripMenuItem_ERPBOM,
-            this.ToolStripMenuItem_ClearResult});
-            this.contextMenuStripMain.Name = "contextMenuStripMain";
-            this.contextMenuStripMain.Size = new System.Drawing.Size(161, 92);
-            // 
-            // contextMenuStripTree
-            // 
-            this.contextMenuStripTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_ExBom,
-            this.ToolStripMenuItem_ExWGJ,
-            this.ToolStripMenuItem_ExZZJ,
-            this.ToolStripMenuItem_ToFactBOM,
-            this.ToolStripMenuItem_ClearTree});
-            this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(161, 114);
-            // 
-            // notifyIconMain
-            // 
-            this.notifyIconMain.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconMain.Icon")));
-            this.notifyIconMain.Text = "PLM数据同步";
-            this.notifyIconMain.DoubleClick += new System.EventHandler(this.notifyIconMain_DoubleClick);
-            // 
-            // timerProg
-            // 
-            this.timerProg.Enabled = true;
-            this.timerProg.Interval = 500;
-            this.timerProg.Tick += new System.EventHandler(this.timerProg_Tick);
-            // 
-            // timerAutoSync
-            // 
-            this.timerAutoSync.Tick += new System.EventHandler(this.timerAutoSync_Tick);
-            // 
-            // timerAutoCache
-            // 
-            this.timerAutoCache.Enabled = true;
-            this.timerAutoCache.Interval = 1800000;
-            this.timerAutoCache.Tick += new System.EventHandler(this.timerAutoCache_Tick);
-            // 
-            // DropDownButtonFile
-            // 
-            this.DropDownButtonFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DropDownButtonFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuExist,
-            this.ToolStripMenuModPsw});
-            this.DropDownButtonFile.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.Folder;
-            this.DropDownButtonFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DropDownButtonFile.Name = "DropDownButtonFile";
-            this.DropDownButtonFile.Size = new System.Drawing.Size(45, 22);
-            this.DropDownButtonFile.Text = "用户";
-            // 
-            // ToolStripMenuExist
-            // 
-            this.ToolStripMenuExist.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.quit;
-            this.ToolStripMenuExist.Name = "ToolStripMenuExist";
-            this.ToolStripMenuExist.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuExist.Text = "退出";
-            this.ToolStripMenuExist.Click += new System.EventHandler(this.ToolStripMenuExist_Click);
-            // 
-            // ToolStripMenuModPsw
-            // 
-            this.ToolStripMenuModPsw.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.password;
-            this.ToolStripMenuModPsw.Name = "ToolStripMenuModPsw";
-            this.ToolStripMenuModPsw.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuModPsw.Text = "修改密码";
-            this.ToolStripMenuModPsw.Click += new System.EventHandler(this.ToolStripMenuModPsw_Click);
-            // 
-            // toolDropBtnPlm
-            // 
-            this.toolDropBtnPlm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolDropBtnPlm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.BtnGetNewBOM,
-            this.BtnGetNewBOO,
-            this.BtnGetNewMTL,
-            this.ToolStripMenuItem_ChkBOM,
-            this.ToolStripMenuItem_UpdateParts,
-            this.ToolStripMenuItem_UnitBug});
-            this.toolDropBtnPlm.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.PLM;
-            this.toolDropBtnPlm.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDropBtnPlm.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolDropBtnPlm.Name = "toolDropBtnPlm";
-            this.toolDropBtnPlm.Size = new System.Drawing.Size(46, 22);
-            this.toolDropBtnPlm.Text = "PLM";
-            // 
-            // BtnGetNewBOM
-            // 
-            this.BtnGetNewBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.tree;
-            this.BtnGetNewBOM.Name = "BtnGetNewBOM";
-            this.BtnGetNewBOM.Size = new System.Drawing.Size(154, 22);
-            this.BtnGetNewBOM.Text = "获取BOM";
-            this.BtnGetNewBOM.Click += new System.EventHandler(this.toolDropGetNewBOM_Click);
-            // 
-            // BtnGetNewBOO
-            // 
-            this.BtnGetNewBOO.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.flow;
-            this.BtnGetNewBOO.Name = "BtnGetNewBOO";
-            this.BtnGetNewBOO.Size = new System.Drawing.Size(154, 22);
-            this.BtnGetNewBOO.Text = "获取BOO";
-            this.BtnGetNewBOO.Click += new System.EventHandler(this.BtnGetNewBOO_Click);
-            // 
-            // BtnGetNewMTL
-            // 
-            this.BtnGetNewMTL.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
-            this.BtnGetNewMTL.Name = "BtnGetNewMTL";
-            this.BtnGetNewMTL.Size = new System.Drawing.Size(154, 22);
-            this.BtnGetNewMTL.Text = "获取新物料";
-            this.BtnGetNewMTL.Click += new System.EventHandler(this.BtnGetNewMTL_Click);
-            // 
-            // ToolStripMenuItem_ChkBOM
-            // 
-            this.ToolStripMenuItem_ChkBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
-            this.ToolStripMenuItem_ChkBOM.Name = "ToolStripMenuItem_ChkBOM";
-            this.ToolStripMenuItem_ChkBOM.Size = new System.Drawing.Size(154, 22);
-            this.ToolStripMenuItem_ChkBOM.Text = "检测BOM更新";
-            this.ToolStripMenuItem_ChkBOM.Click += new System.EventHandler(this.ToolStripMenuItem_ChkBOM_Click);
-            // 
-            // ToolStripMenuItem_UpdateParts
-            // 
-            this.ToolStripMenuItem_UpdateParts.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.refresh;
-            this.ToolStripMenuItem_UpdateParts.Name = "ToolStripMenuItem_UpdateParts";
-            this.ToolStripMenuItem_UpdateParts.Size = new System.Drawing.Size(154, 22);
-            this.ToolStripMenuItem_UpdateParts.Text = "批量更新物料";
-            this.ToolStripMenuItem_UpdateParts.Click += new System.EventHandler(this.ToolStripMenuItem_UpdateParts_Click);
-            // 
-            // ToolStripMenuItem_UnitBug
-            // 
-            this.ToolStripMenuItem_UnitBug.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.filter;
-            this.ToolStripMenuItem_UnitBug.Name = "ToolStripMenuItem_UnitBug";
-            this.ToolStripMenuItem_UnitBug.Size = new System.Drawing.Size(154, 22);
-            this.ToolStripMenuItem_UnitBug.Text = "物料单位异常";
-            this.ToolStripMenuItem_UnitBug.Click += new System.EventHandler(this.ToolStripMenuItem_UnitBug_Click);
-            // 
-            // toolDropbtnErp
-            // 
-            this.toolDropbtnErp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolDropbtnErp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_GetERPBOM,
-            this.toolDropBtnPartOpr,
-            this.ToolStripMenuItem_Jobs,
-            this.toolDropBtnPartMtl,
-            this.toolDropBtnPart});
-            this.toolDropbtnErp.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
-            this.toolDropbtnErp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDropbtnErp.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolDropbtnErp.Name = "toolDropbtnErp";
-            this.toolDropbtnErp.Size = new System.Drawing.Size(43, 22);
-            this.toolDropbtnErp.Text = "ERP";
-            // 
-            // ToolStripMenuItem_GetERPBOM
-            // 
-            this.ToolStripMenuItem_GetERPBOM.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.tree;
-            this.ToolStripMenuItem_GetERPBOM.Name = "ToolStripMenuItem_GetERPBOM";
-            this.ToolStripMenuItem_GetERPBOM.Size = new System.Drawing.Size(130, 22);
-            this.ToolStripMenuItem_GetERPBOM.Text = "获取BOM";
-            this.ToolStripMenuItem_GetERPBOM.Click += new System.EventHandler(this.ToolStripMenuItem_GetERPBOM_Click);
-            // 
-            // toolDropBtnPartOpr
-            // 
-            this.toolDropBtnPartOpr.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.flow;
-            this.toolDropBtnPartOpr.Name = "toolDropBtnPartOpr";
-            this.toolDropBtnPartOpr.Size = new System.Drawing.Size(130, 22);
-            this.toolDropBtnPartOpr.Text = "获取BOO";
-            this.toolDropBtnPartOpr.Click += new System.EventHandler(this.toolDropBtnPartOpr_Click);
-            // 
-            // ToolStripMenuItem_Jobs
-            // 
-            this.ToolStripMenuItem_Jobs.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.search_16_2;
-            this.ToolStripMenuItem_Jobs.Name = "ToolStripMenuItem_Jobs";
-            this.ToolStripMenuItem_Jobs.Size = new System.Drawing.Size(130, 22);
-            this.ToolStripMenuItem_Jobs.Text = "工单查询";
-            this.ToolStripMenuItem_Jobs.Click += new System.EventHandler(this.ToolStripMenuItem_Jobs_Click);
-            // 
-            // toolDropBtnPartMtl
-            // 
-            this.toolDropBtnPartMtl.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
-            this.toolDropBtnPartMtl.Name = "toolDropBtnPartMtl";
-            this.toolDropBtnPartMtl.Size = new System.Drawing.Size(130, 22);
-            this.toolDropBtnPartMtl.Text = "BOM物料";
-            this.toolDropBtnPartMtl.Click += new System.EventHandler(this.toolDropBtnPartMtl_Click);
-            // 
-            // toolDropBtnPart
-            // 
-            this.toolDropBtnPart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
-            this.toolDropBtnPart.Name = "toolDropBtnPart";
-            this.toolDropBtnPart.Size = new System.Drawing.Size(130, 22);
-            this.toolDropBtnPart.Text = "物料档案";
-            this.toolDropBtnPart.Click += new System.EventHandler(this.toolDropBtnPart_Click);
-            // 
-            // toolDropExport
-            // 
-            this.toolDropExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolDropExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.BtnExport_NewPart,
-            this.BtnExport_NewBom,
-            this.ToolStripMenuItem_ResetCache});
-            this.toolDropExport.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.operate;
-            this.toolDropExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDropExport.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolDropExport.Name = "toolDropExport";
-            this.toolDropExport.Size = new System.Drawing.Size(45, 22);
-            this.toolDropExport.Text = "操作";
-            // 
-            // BtnExport_NewPart
-            // 
-            this.BtnExport_NewPart.Enabled = false;
-            this.BtnExport_NewPart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
-            this.BtnExport_NewPart.Name = "BtnExport_NewPart";
-            this.BtnExport_NewPart.Size = new System.Drawing.Size(148, 22);
-            this.BtnExport_NewPart.Text = "导出新物料";
-            this.BtnExport_NewPart.Click += new System.EventHandler(this.BtnExport_NewPart_Click);
-            // 
-            // BtnExport_NewBom
-            // 
-            this.BtnExport_NewBom.Enabled = false;
-            this.BtnExport_NewBom.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
-            this.BtnExport_NewBom.Name = "BtnExport_NewBom";
-            this.BtnExport_NewBom.Size = new System.Drawing.Size(148, 22);
-            this.BtnExport_NewBom.Text = "导出新BOM";
-            this.BtnExport_NewBom.Click += new System.EventHandler(this.BtnExport_NewBom_Click);
-            // 
-            // ToolStripMenuItem_ResetCache
-            // 
-            this.ToolStripMenuItem_ResetCache.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.refresh;
-            this.ToolStripMenuItem_ResetCache.Name = "ToolStripMenuItem_ResetCache";
-            this.ToolStripMenuItem_ResetCache.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItem_ResetCache.Text = "重置本地缓存";
-            this.ToolStripMenuItem_ResetCache.Click += new System.EventHandler(this.ToolStripMenuItem_ResetCache_Click);
-            // 
-            // toolBtnReport
-            // 
-            this.toolBtnReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolBtnReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_MtlAna,
-            this.ToolStripMenuItem_PartPlan});
-            this.toolBtnReport.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReport.Image")));
-            this.toolBtnReport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBtnReport.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolBtnReport.Name = "toolBtnReport";
-            this.toolBtnReport.Size = new System.Drawing.Size(45, 22);
-            this.toolBtnReport.Text = "报表";
-            // 
-            // ToolStripMenuItem_MtlAna
-            // 
-            this.ToolStripMenuItem_MtlAna.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.chart;
-            this.ToolStripMenuItem_MtlAna.Name = "ToolStripMenuItem_MtlAna";
-            this.ToolStripMenuItem_MtlAna.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuItem_MtlAna.Text = "物料分析";
-            this.ToolStripMenuItem_MtlAna.Click += new System.EventHandler(this.ToolStripMenuItem_MtlAna_Click);
-            // 
-            // ToolStripMenuItem_PartPlan
-            // 
-            this.ToolStripMenuItem_PartPlan.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
-            this.ToolStripMenuItem_PartPlan.Name = "ToolStripMenuItem_PartPlan";
-            this.ToolStripMenuItem_PartPlan.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuItem_PartPlan.Text = "物料计划";
-            this.ToolStripMenuItem_PartPlan.Click += new System.EventHandler(this.ToolStripMenuItem_PartPlan_Click);
-            // 
-            // toolBtnStart
-            // 
-            this.toolBtnStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolBtnStart.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Start,
-            this.ToolStripMenuItem_Stop});
-            this.toolBtnStart.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.start;
-            this.toolBtnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBtnStart.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolBtnStart.Name = "toolBtnStart";
-            this.toolBtnStart.Size = new System.Drawing.Size(45, 22);
-            this.toolBtnStart.Text = "启动";
-            // 
-            // ToolStripMenuItem_Start
-            // 
-            this.ToolStripMenuItem_Start.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.start;
-            this.ToolStripMenuItem_Start.Name = "ToolStripMenuItem_Start";
-            this.ToolStripMenuItem_Start.Size = new System.Drawing.Size(100, 22);
-            this.ToolStripMenuItem_Start.Text = "启动";
-            this.ToolStripMenuItem_Start.Click += new System.EventHandler(this.ToolStripMenuItem_Start_Click);
-            // 
-            // ToolStripMenuItem_Stop
-            // 
-            this.ToolStripMenuItem_Stop.Enabled = false;
-            this.ToolStripMenuItem_Stop.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.stop;
-            this.ToolStripMenuItem_Stop.Name = "ToolStripMenuItem_Stop";
-            this.ToolStripMenuItem_Stop.Size = new System.Drawing.Size(100, 22);
-            this.ToolStripMenuItem_Stop.Text = "停止";
-            this.ToolStripMenuItem_Stop.Click += new System.EventHandler(this.ToolStripMenuItem_Stop_Click);
-            // 
-            // toolDropSetting
-            // 
-            this.toolDropSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolDropSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Unit,
-            this.ToolStripMenuItem_Sys,
-            this.ToolStripMenuItem_OpenLog,
-            this.ToolStripMenuItem_SyncLog,
-            this.ToolStripMenuItemPowers});
-            this.toolDropSetting.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.setting;
-            this.toolDropSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDropSetting.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolDropSetting.Name = "toolDropSetting";
-            this.toolDropSetting.Size = new System.Drawing.Size(45, 22);
-            this.toolDropSetting.Text = "设置";
-            // 
-            // ToolStripMenuItem_Unit
-            // 
-            this.ToolStripMenuItem_Unit.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
-            this.ToolStripMenuItem_Unit.Name = "ToolStripMenuItem_Unit";
-            this.ToolStripMenuItem_Unit.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItem_Unit.Text = "单位设置";
-            this.ToolStripMenuItem_Unit.Click += new System.EventHandler(this.ToolStripMenuItem_Unit_Click);
-            // 
-            // ToolStripMenuItem_Sys
-            // 
-            this.ToolStripMenuItem_Sys.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.setting;
-            this.ToolStripMenuItem_Sys.Name = "ToolStripMenuItem_Sys";
-            this.ToolStripMenuItem_Sys.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItem_Sys.Text = "系统设置";
-            this.ToolStripMenuItem_Sys.Click += new System.EventHandler(this.ToolStripMenuItem_Sys_Click);
-            // 
-            // ToolStripMenuItem_OpenLog
-            // 
-            this.ToolStripMenuItem_OpenLog.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_ClearLog});
-            this.ToolStripMenuItem_OpenLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.log;
-            this.ToolStripMenuItem_OpenLog.Name = "ToolStripMenuItem_OpenLog";
-            this.ToolStripMenuItem_OpenLog.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItem_OpenLog.Text = "系统日志";
-            this.ToolStripMenuItem_OpenLog.Click += new System.EventHandler(this.ToolStripMenuItem_OpenLog_Click);
-            // 
-            // ToolStripMenuItem_ClearLog
-            // 
-            this.ToolStripMenuItem_ClearLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.clear;
-            this.ToolStripMenuItem_ClearLog.Name = "ToolStripMenuItem_ClearLog";
-            this.ToolStripMenuItem_ClearLog.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuItem_ClearLog.Text = "清除日志";
-            this.ToolStripMenuItem_ClearLog.Click += new System.EventHandler(this.ToolStripMenuItem_ClearLog_Click);
-            // 
-            // ToolStripMenuItem_SyncLog
-            // 
-            this.ToolStripMenuItem_SyncLog.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.logs;
-            this.ToolStripMenuItem_SyncLog.Name = "ToolStripMenuItem_SyncLog";
-            this.ToolStripMenuItem_SyncLog.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItem_SyncLog.Text = "数据同步日志";
-            this.ToolStripMenuItem_SyncLog.Click += new System.EventHandler(this.ToolStripMenuItem_SyncLog_Click);
-            // 
-            // ToolStripMenuItemPowers
-            // 
-            this.ToolStripMenuItemPowers.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.power;
-            this.ToolStripMenuItemPowers.Name = "ToolStripMenuItemPowers";
-            this.ToolStripMenuItemPowers.Size = new System.Drawing.Size(148, 22);
-            this.ToolStripMenuItemPowers.Text = "权限设置";
-            this.ToolStripMenuItemPowers.Click += new System.EventHandler(this.ToolStripMenuItemPowers_Click);
             // 
             // BtnImportNewBOM
             // 
@@ -832,6 +789,21 @@
             this.BtnGetNewPartMtl.UseVisualStyleBackColor = false;
             this.BtnGetNewPartMtl.Click += new System.EventHandler(this.BtnGetNewPartMtl_Click);
             // 
+            // timerOpr
+            // 
+            this.timerOpr.Enabled = true;
+            this.timerOpr.Tick += new System.EventHandler(this.timerOpr_Tick);
+            // 
+            // contextMenuStripMain
+            // 
+            this.contextMenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_CopyToExcel,
+            this.ToolStripMenuItem_Bom,
+            this.ToolStripMenuItem_ERPBOM,
+            this.ToolStripMenuItem_ClearResult});
+            this.contextMenuStripMain.Name = "contextMenuStripMain";
+            this.contextMenuStripMain.Size = new System.Drawing.Size(161, 92);
+            // 
             // ToolStripMenuItem_CopyToExcel
             // 
             this.ToolStripMenuItem_CopyToExcel.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.copy;
@@ -863,6 +835,17 @@
             this.ToolStripMenuItem_ClearResult.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItem_ClearResult.Text = "清空表格";
             this.ToolStripMenuItem_ClearResult.Click += new System.EventHandler(this.ToolStripMenuItem_ClearResult_Click);
+            // 
+            // contextMenuStripTree
+            // 
+            this.contextMenuStripTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_ExBom,
+            this.ToolStripMenuItem_ExWGJ,
+            this.ToolStripMenuItem_ExZZJ,
+            this.ToolStripMenuItem_ToFactBOM,
+            this.ToolStripMenuItem_ClearTree});
+            this.contextMenuStripTree.Name = "contextMenuStripTree";
+            this.contextMenuStripTree.Size = new System.Drawing.Size(161, 114);
             // 
             // ToolStripMenuItem_ExBom
             // 
@@ -903,6 +886,48 @@
             this.ToolStripMenuItem_ClearTree.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItem_ClearTree.Text = "清空数据";
             this.ToolStripMenuItem_ClearTree.Click += new System.EventHandler(this.ToolStripMenuItem_ClearTree_Click);
+            // 
+            // notifyIconMain
+            // 
+            this.notifyIconMain.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconMain.Icon")));
+            this.notifyIconMain.Text = "PLM数据同步";
+            this.notifyIconMain.DoubleClick += new System.EventHandler(this.notifyIconMain_DoubleClick);
+            // 
+            // timerProg
+            // 
+            this.timerProg.Enabled = true;
+            this.timerProg.Interval = 500;
+            this.timerProg.Tick += new System.EventHandler(this.timerProg_Tick);
+            // 
+            // timerAutoSync
+            // 
+            this.timerAutoSync.Tick += new System.EventHandler(this.timerAutoSync_Tick);
+            // 
+            // timerAutoCache
+            // 
+            this.timerAutoCache.Enabled = true;
+            this.timerAutoCache.Interval = 1800000;
+            this.timerAutoCache.Tick += new System.EventHandler(this.timerAutoCache_Tick);
+            // 
+            // toolDropBtnProject
+            // 
+            this.toolDropBtnProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolDropBtnProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_Rev});
+            this.toolDropBtnProject.Image = ((System.Drawing.Image)(resources.GetObject("toolDropBtnProject.Image")));
+            this.toolDropBtnProject.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDropBtnProject.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolDropBtnProject.Name = "toolDropBtnProject";
+            this.toolDropBtnProject.Size = new System.Drawing.Size(45, 22);
+            this.toolDropBtnProject.Text = "工程";
+            // 
+            // ToolStripMenuItem_Rev
+            // 
+            this.ToolStripMenuItem_Rev.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.operate;
+            this.ToolStripMenuItem_Rev.Name = "ToolStripMenuItem_Rev";
+            this.ToolStripMenuItem_Rev.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Rev.Text = "工程设计";
+            this.ToolStripMenuItem_Rev.Click += new System.EventHandler(this.ToolStripMenuItem_Rev_Click);
             // 
             // MainForm
             // 
@@ -985,7 +1010,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ExBom;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ExWGJ;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ExZZJ;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Jobs;
         private System.Windows.Forms.NotifyIcon notifyIconMain;
         private System.Windows.Forms.ToolStripStatusLabel SLabelErpDbName;
         private System.Windows.Forms.Timer timerProg;
@@ -1024,6 +1048,9 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPowers;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_PartPlan;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_UnitBug;
+        private System.Windows.Forms.Label labelload;
+        private System.Windows.Forms.ToolStripDropDownButton toolDropBtnProject;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_Rev;
     }
 }
 

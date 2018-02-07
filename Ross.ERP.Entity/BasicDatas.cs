@@ -18,6 +18,7 @@ namespace Ross.ERP.Entity
         /// ERP缓存BOM数据
         /// </summary>
         public static IList<PartMtl> ErpPartMtl { get; set; }
+        public static IList<PartRev> ErpPartRev { get; set; }
         public static IList<OpMaster> ErpOpMaster { get; set; }
         public static IList<StockPart> StockPart { get; set; }
         /// <summary>
@@ -64,6 +65,7 @@ namespace Ross.ERP.Entity
             {
                 ErpPart = ERPDB.Part.ToList();
                 StockPart = ERPDB.StockPart.ToList();
+                ErpPartRev = ERPDB.PartRev.ToList();
             }
         }
 
@@ -112,7 +114,7 @@ namespace Ross.ERP.Entity
             {
                 PLM_MATERIAL = PLMDB.MATERIAL.Where(o => o.DEL == false && o.STATE == "A").ToList();
             }
-            
+
         }
         public void LoadPLM_PRODUCT()
         {

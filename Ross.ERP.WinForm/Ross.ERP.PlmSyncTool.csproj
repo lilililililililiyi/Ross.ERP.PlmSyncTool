@@ -179,6 +179,12 @@
     <Compile Include="FormModPsw.Designer.cs">
       <DependentUpon>FormModPsw.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPartRev.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPartRev.Designer.cs">
+      <DependentUpon>FormPartRev.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSyncData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormModPsw.resx">
       <DependentUpon>FormModPsw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPartRev.resx">
+      <DependentUpon>FormPartRev.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSyncData.resx">
       <DependentUpon>FormSyncData.cs</DependentUpon>
@@ -355,6 +364,10 @@
     <None Include="Resources\filter.png" />
     <None Include="Resources\password.png" />
     <None Include="Resources\power.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\bar.gif" />
     <Content Include="ross.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

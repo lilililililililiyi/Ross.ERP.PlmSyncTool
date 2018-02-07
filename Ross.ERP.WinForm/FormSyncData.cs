@@ -44,8 +44,10 @@ namespace Ross.ERP.PlmSyncTool
         /// <summary>
         /// PLM新BOM结构（带分组GroupID）
         /// </summary>
-        private DataTable DataNewBOM2 { get; set; }
+        private DataTable DataNewBOMGroup { get; set; }
         private DataTable DataUpdateJobs { get; set; }
+        private List<ExportDto.MBOM_UD> ListMBOM;
+        private List<ExportDto.MPART> ListMPART;
         private Utilities Utility;
         private ERPRepository ERP;
         private PLMRespository PLM;
@@ -90,8 +92,8 @@ namespace Ross.ERP.PlmSyncTool
                     try
                     {
                         //List<ExportDto.MBOM_UD> delMBOM = new List<ExportDto.MBOM_UD>();
-                        List<ExportDto.MBOM_UD> ListMBOM = new List<ExportDto.MBOM_UD>();
-                        List<ExportDto.MPART> ListMPART = new List<ExportDto.MPART>();
+                        ListMBOM = new List<ExportDto.MBOM_UD>();
+                        ListMPART = new List<ExportDto.MPART>();
                         //CallGetDataDelBOM(PartNumArr, out delMBOM);
                         //CallGetDataDelBOO(PartNumArr, delMBOM);
 
@@ -217,7 +219,7 @@ namespace Ross.ERP.PlmSyncTool
             mbom_data = mbom_data.OrderBy(o => o.PartNum).ThenBy(o => o.MtlSeq).ToList();
             DataNewBOM = Utility.ListToDataTable(mbom_data, "_", "#");
             ListMBOM = ListMBOM.OrderBy(o => o.GroupID).ThenBy(o => o.PartNum).ThenBy(o => o.MtlSeq).ToList();
-            DataNewBOM2 = Utility.ListToDataTable(ListMBOM, "_", "#");
+            DataNewBOMGroup = Utility.ListToDataTable(ListMBOM, "_", "#");
 
             List<ExportDto.MPART> data = Utilities.MapTo<List<ExportDto.MPART>>(lists);
             foreach (var part in data)
@@ -494,6 +496,10 @@ namespace Ross.ERP.PlmSyncTool
 
             ProcessDelegate ProDeleg = delegate ()
             {
+                foreach (var item in ListMPART.Where(o => o.TypeCode == "M").ToList())
+                {
+                    ERP.ChgPartRevEffectDate(item.PartNum, RevisionNum);
+                }
                 timerSync.Enabled = false;
                 progressBarSync.Value = 100;
                 labelSyncStatus.Text = "PLM数据同步已完成！";
@@ -503,7 +509,7 @@ namespace Ross.ERP.PlmSyncTool
                 DataTable[] DTS = new DataTable[3];
                 DTS[0] = DataNewPart;
                 DTS[1] = DataNewBOO;
-                DTS[2] = DataNewBOM2;
+                DTS[2] = DataNewBOMGroup;
                 //DTS[3] = DataUpdateJobs;
 
                 string[] sheetNames = new string[3];

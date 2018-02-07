@@ -582,52 +582,6 @@ namespace Ross.ERP.PlmSyncTool
             FunGetNewBOM();
         }
 
-        private void ToolStripMenuItem_Jobs_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tboxPartNum.Text))
-            {
-                MessageBox.Show("请输入产品码！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                ToolStripMenuItem_Jobs.Enabled = false;
-                ProgressRuning = true;
-                ProgressBarBot.Value = 0;
-                Task taskSync = Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        var datas = ERP.GetJobMtl(false, false, tboxPartNum.Text);
-                        DataCount = datas.Count;
-                        ProcessDelegate ProDeleg = delegate ()
-                        {
-                            dataGridViewMain.DataSource = datas;
-                            ToolStripMenuItem_Jobs.Enabled = true;
-                            ProgressRuning = false;
-                            StatusLabelInfo.Text = "共获取" + DataCount + "条数据";
-                            ProgressBarBot.Value = 100;
-                            tabControlMain.SelectedIndex = 0;
-                            tabControlMain.SelectedTab.Text = "数据列表";
-                            CurrentDgv = dataGridViewMain;
-                        };
-                        if (this.InvokeRequired)
-                            this.Invoke(ProDeleg);
-                    }
-                    catch (Exception err)
-                    {
-                        this.BeginInvoke(new Action(() =>
-                        {
-                            ToolStripMenuItem_Jobs.Enabled = true;
-                            ProgressRuning = false;
-                            StatusLabelInfo.Text = "共获取0条数据";
-                            ProgressBarBot.Value = 100;
-                        }));
-                        MessageBox.Show(err.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }, TaskCreationOptions.None);
-            }
-        }
-
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
@@ -865,7 +819,13 @@ namespace Ross.ERP.PlmSyncTool
                     ProgressBarBot.Value = 100;
                 }));
             }, TaskCreationOptions.None);
-            await Task.Run(() => taskSync.Start());
+            try {
+                await Task.Run(() => taskSync.Start());
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void ToolStripMenuItem_ERPBOM_Click(object sender, EventArgs e)
@@ -1009,7 +969,7 @@ namespace Ross.ERP.PlmSyncTool
             ProgressBarBot.Value = 0;
             Task.Run(() =>
             {
-                var lists = BasicDatas.ErpPart;
+                var lists = ERP.GetPart("", tboxPartNum.Text);
                 foreach (var it in lists)
                 {
                     it.SysRevID = null;
@@ -1077,6 +1037,13 @@ namespace Ross.ERP.PlmSyncTool
                     ProgressBarBot.Value = 100;
                 }));
             });
+        }
+
+        private void ToolStripMenuItem_Rev_Click(object sender, EventArgs e)
+        {
+            FormPartRev form = new FormPartRev(ERP);
+            form.Owner = this;
+            form.ShowDialog();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Ross.ERP.PlmSyncTool
 
             tasks = new Task[9];
             BasicDatas BscData = new BasicDatas(ERPConn, PLMConn);
+
             tasks[0] = Task.Run(() =>
             {
                 BscData.LoadERPPart();
