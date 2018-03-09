@@ -19,6 +19,43 @@ namespace Ross.ERP.Entity
             Connection = ConnStr;
         }
 
+        public List<JobAsmbl> GetJobAsmbl(string JobNum)
+        {
+            List<JobAsmbl> lists = new List<JobAsmbl>();
+            using (ERP.ERPDbContext ERPDB = new ERP.ERPDbContext(Connection))
+            {
+                if (!string.IsNullOrEmpty(JobNum))
+                    lists = ERPDB.JobAsmbl.Where(o => o.JobNum == JobNum).ToList();
+                else
+                    lists = ERPDB.JobAsmbl.ToList();
+            }
+            return lists;
+        }
+        public List<JobMtl> GetJobMtl(string JobNum)
+        {
+            List<JobMtl> lists = new List<JobMtl>();
+            using (ERP.ERPDbContext ERPDB = new ERP.ERPDbContext(Connection))
+            {
+                if (!string.IsNullOrEmpty(JobNum))
+                    lists = ERPDB.JobMtl.Where(o => o.JobNum == JobNum).ToList();
+                else
+                    lists = ERPDB.JobMtl.ToList();
+            }
+            return lists;
+        }
+        public List<JobOper> GetJobOper(string JobNum)
+        {
+            List<JobOper> lists = new List<JobOper>();
+            using (ERP.ERPDbContext ERPDB = new ERP.ERPDbContext(Connection))
+            {
+                if (!string.IsNullOrEmpty(JobNum))
+                    lists = ERPDB.JobOper.Where(o => o.JobNum == JobNum).ToList();
+                else
+                    lists = ERPDB.JobOper.ToList();
+            }
+            return lists;
+        }
+
         public UserFile GetUser(string UserName)
         {
             UserFile model = new UserFile();
@@ -91,13 +128,12 @@ namespace Ross.ERP.Entity
         /// </summary>
         /// <param name="PartNum"></param>
         /// <returns></returns>
-        public void GetERPBOM(string PartNum, List<DTO_MBOM> ERPBOM, bool isChild = true)
+        public void GetERPBOM(string PartNum, List<DTO_MBOM> ERPBOM,  bool isChild = true)
         {
             var PartRev = BasicDatas.ErpPartRev.Where(o => o.PartNum == PartNum).OrderByDescending(o => o.EffectiveDate).FirstOrDefault();
-            var lists = from a in BasicDatas.ErpPartMtl
+            var lists = from a in BasicDatas.ErpPartMtl.Where(a=> a.PartNum == PartNum && a.RevisionNum == PartRev.RevisionNum)
                         join part in BasicDatas.ErpPart on a.PartNum equals part.PartNum
                         join partMtl in BasicDatas.ErpPart on a.MtlPartNum equals partMtl.PartNum
-                        where a.PartNum == PartNum && a.RevisionNum == PartRev.RevisionNum
                         select new { a, part, partMtl };
             foreach (var item in lists)
             {
@@ -117,8 +153,8 @@ namespace Ross.ERP.Entity
                 obj.ViewAsAsm = item.partMtl.TypeCode == "M" ? "TRUE" : "FALSE";
                 obj.Source = item.partMtl.TypeCode == "M" ? "自制件" : "外购件";
                 ERPBOM.Add(obj);
-                if (isChild)
-                    GetERPBOM(obj.MtlPartNum, ERPBOM);
+                if (isChild && item.partMtl.TypeCode == "M")
+                    GetERPBOM(obj.MtlPartNum, ERPBOM, true);
             }
         }
 
@@ -443,6 +479,62 @@ namespace Ross.ERP.Entity
                         dt = dt.AddDays(-1);
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// 获取工单BOM结构
+        /// </summary>
+        /// <param name="lists"></param>
+        /// <param name="JobAsmblDatas"></param>
+        /// <param name="JobMtlDatas"></param>
+        /// <param name="jobnum"></param>
+        /// <param name="parent"></param>
+        /// <param name="isRoot"></param>
+        public void GetJobBom(List<DTO_JOBOM> lists, List<JobAsmbl> JobAsmblDatas, List<JobMtl> JobMtlDatas, string jobnum, int parent = 0, int isRoot = 1)
+        {
+            var items = JobAsmblDatas.Where(o => o.Parent == parent && o.JobNum == jobnum).ToList();
+            if (isRoot == 0)
+                items = items.Where(o => o.BomLevel > 0).ToList();
+            else
+                items = items.Where(o => o.BomLevel == 0).ToList();
+
+            foreach (var item in items)
+            {
+                AutoMapper.Mapper.Initialize(x => x.CreateMap<JobAsmbl, DTO_JOBOM>());
+                DTO_JOBOM obj = AutoMapper.Mapper.Map<DTO_JOBOM>(item);
+                if (item.Child > 0)
+                {
+                    GetJobBom(lists, JobAsmblDatas, JobMtlDatas, jobnum, item.AssemblySeq, 0);
+                }
+
+                #region 获取第一个工序下的物料
+                int firstOper = 0;
+                try
+                {
+                    firstOper = GetJobOper(jobnum).Where(o => o.AssemblySeq == item.AssemblySeq).OrderBy(o => o.OprSeq).FirstOrDefault().OprSeq;
+                }
+                catch { firstOper = 10; }
+                if (firstOper > 0)
+                {
+                    var jobMtls = JobMtlDatas.Where(o => o.AssemblySeq == item.AssemblySeq && o.RelatedOperation == firstOper).ToList();
+                    if (jobMtls.Count > 0)
+                    {
+                        foreach (var mtl in jobMtls)
+                        {
+                            AutoMapper.Mapper.Initialize(x => x.CreateMap<Entity.ERP.Model.JobMtl, DTO_JOBOM>());
+                            DTO_JOBOM dja = AutoMapper.Mapper.Map<DTO_JOBOM>(mtl);
+                            dja.BomLevel = item.BomLevel + 1;
+                            dja.RelatedOperation = firstOper;
+                            dja.Parent = item.AssemblySeq;
+                            dja.IsMtl = true;
+                            dja.MtlSeq = mtl.MtlSeq;
+                            lists.Add(dja);
+                        }
+                    }
+                }
+                #endregion
+
+                lists.Add(obj);
             }
         }
     }

@@ -19,6 +19,7 @@ namespace Ross.ERP.PlmSyncTool
             FileHelper.CreateFile(Application.StartupPath + "\\SysLog.txt");
             FileHelper.CreateFile(Application.StartupPath + "\\Config.txt");
             FileHelper.CreateFile(Application.StartupPath + "\\ConfigUnit.txt");
+            
             Application.Run(new FormLogin());
         }
     }

@@ -70,6 +70,7 @@
     <Compile Include="DTO\DTO_Config.cs" />
     <Compile Include="DTO\DTO_ERP_JOB.cs" />
     <Compile Include="DTO\DTO_JobMtl.cs" />
+    <Compile Include="DTO\DTO_JOBOM.cs" />
     <Compile Include="DTO\DTO_MBOO.cs" />
     <Compile Include="DTO\DTO_MBOM.cs" />
     <Compile Include="DTO\DTO_MPART.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="ERP\Model\Vendor.cs" />
     <Compile Include="ERP\Model\VendPart.cs" />
     <Compile Include="ERP\Model\WhseBin.cs" />
+    <Compile Include="PLM\Model\MACH.cs" />
     <Compile Include="PLM\Model\MTL.cs" />
     <Compile Include="PLM\Model\MTL_OBJOF.cs" />
     <Compile Include="PLM\Model\PRODUCT.cs" />

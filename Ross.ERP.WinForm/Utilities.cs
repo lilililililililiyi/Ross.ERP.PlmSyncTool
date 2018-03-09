@@ -348,7 +348,7 @@ namespace Ross.ERP.PlmSyncTool
         {
             try
             {
-                if (PartNum.StartsWith("13") || PartNum.StartsWith("14"))
+                if (PartNum.StartsWith("13") || PartNum.StartsWith("14") || PartNum.StartsWith("16"))
                 {
                     return false;
                 }

@@ -53,7 +53,8 @@ namespace Ross.ERP.PlmSyncTool
                         var dataMaterial = BasicDatas.PLM_MATERIAL.Where(o => PartNums.Contains(o.NO)).ToList();
                         var dataProduct = BasicDatas.PLM_PRODUCT.Where(o => PartNums.Contains(o.NO)).ToList();
                         var dataMtl = BasicDatas.PLM_MTL.Where(o => PartNums.Contains(o.NO)).ToList();
-                        var lists = PLM.ConvertMPART(dataPart, dataMaterial, dataProduct, dataMtl);
+                        var dataMach = BasicDatas.PLM_MACH.Where(o => PartNums.Contains(o.NO)).ToList();
+                        var lists = PLM.ConvertMPART(dataPart, dataMaterial, dataProduct, dataMtl, dataMach);
 
                         List<ExportDto.MPART> data = Utilities.MapTo<List<ExportDto.MPART>>(lists);
                         foreach (var it in data)

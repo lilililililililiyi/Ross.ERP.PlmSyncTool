@@ -49,6 +49,10 @@ namespace Ross.ERP.Entity
         /// PLM缓存辅料数据
         /// </summary>
         public static IList<MTL> PLM_MTL { get; set; }
+        /// <summary>
+        /// PLM设备数据
+        /// </summary>
+        public static IList<MACH> PLM_MACH { get; set; }
         public string ERP_ConnStr { get; set; }
         public string PLM_ConnStr { get; set; }
         public static string CurrentUser { get; set; }
@@ -129,6 +133,7 @@ namespace Ross.ERP.Entity
             using (PLM.PLMDbContext PLMDB = new PLM.PLMDbContext(PLM_ConnStr))
             {
                 PLM_MTL = PLMDB.MTL.Where(o => o.DEL == false && o.STATE == "A").ToList();
+                PLM_MACH = PLMDB.MACH.Where(o => o.DEL == false).ToList();
             }
 
         }

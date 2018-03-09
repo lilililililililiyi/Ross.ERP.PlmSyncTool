@@ -197,7 +197,7 @@ namespace Ross.ERP.PlmSyncTool
             }
         }
 
-        private void toolDropBtnPartMtl_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_BOMPartSearch_Click(object sender, EventArgs e)
         {
             ProgressRuning = true;
             ProgressBarBot.Value = 0;
@@ -219,7 +219,7 @@ namespace Ross.ERP.PlmSyncTool
             }, TaskCreationOptions.None);
         }
 
-        private void toolDropBtnPartOpr_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_PartOpr_Click(object sender, EventArgs e)
         {
             ProgressRuning = true;
             ProgressBarBot.Value = 0;
@@ -775,22 +775,9 @@ namespace Ross.ERP.PlmSyncTool
             CurrentDgv.DataSource = null;
         }
 
-        private async void ToolStripMenuItem_GetERPBOM_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_GetERPBOM_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tboxPartNum.Text))
-            {
-                MessageBox.Show("请输入产品码！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            else
-            {
-                treeViewLeft.Nodes.Clear();
-                dataGridViewMain.DataSource = null;
-                ToolStripMenuItem_GetERPBOM.Enabled = false;
-                ProgressBarBot.Value = 0;
-                ProgressRuning = true;
-                await GetERPBOM();
-            }
+
         }
 
         private async Task GetERPBOM()
@@ -819,10 +806,11 @@ namespace Ross.ERP.PlmSyncTool
                     ProgressBarBot.Value = 100;
                 }));
             }, TaskCreationOptions.None);
-            try {
+            try
+            {
                 await Task.Run(() => taskSync.Start());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -963,7 +951,7 @@ namespace Ross.ERP.PlmSyncTool
             AutoCache();
         }
 
-        private void toolDropBtnPart_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_PartSearch_Click(object sender, EventArgs e)
         {
             ProgressRuning = true;
             ProgressBarBot.Value = 0;
@@ -1042,6 +1030,48 @@ namespace Ross.ERP.PlmSyncTool
         private void ToolStripMenuItem_Rev_Click(object sender, EventArgs e)
         {
             FormPartRev form = new FormPartRev(ERP);
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private async void ToolStripMenuItem_GetBOMDesign_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tboxPartNum.Text))
+            {
+                MessageBox.Show("请输入产品码！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                treeViewLeft.Nodes.Clear();
+                dataGridViewMain.DataSource = null;
+                ToolStripMenuItem_GetERPBOM.Enabled = false;
+                ProgressBarBot.Value = 0;
+                ProgressRuning = true;
+                await GetERPBOM();
+            }
+        }
+
+        private void ToolStripMenuItem_GetBOMJob_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tboxPartNum.Text))
+            {
+                var JobAsmblDatas = ERP.GetJobAsmbl(tboxPartNum.Text);
+                var JobMtlDatas = ERP.GetJobMtl(tboxPartNum.Text);
+                List<Entity.DTO.DTO_JOBOM> lists = new List<Entity.DTO.DTO_JOBOM>();
+                ERP.GetJobBom(lists, JobAsmblDatas, JobMtlDatas, tboxPartNum.Text);
+                dataGridViewMain.DataSource = lists.OrderBy(o => o.AssemblySeq).OrderBy(o => o.MtlSeq).ToList();
+
+                StatusLabelInfo.Text = "共获取" + lists.Count + "条数据";
+                tabControlMain.SelectedIndex = 0;
+                tabControlMain.SelectedTab.Text = "ERP工单BOM";
+                CurrentDgv = dataGridViewMain;
+            }
+        }
+
+        private void ToolStripMenuItem_BomCompare_Click(object sender, EventArgs e)
+        {
+            FormBOMComp form = new FormBOMComp(ERP, PLM);
             form.Owner = this;
             form.ShowDialog();
         }

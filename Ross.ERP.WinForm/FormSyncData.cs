@@ -214,6 +214,10 @@ namespace Ross.ERP.PlmSyncTool
             {
                 bom.RevisionNum = RevisionNum;
             }
+            foreach (var bom in ListMBOM)
+            {
+                bom.RevisionNum = RevisionNum;
+            }
 
             List<ExportDto.MBOM> mbom_data = Utilities.MapTo<List<ExportDto.MBOM>>(MBOM);
             mbom_data = mbom_data.OrderBy(o => o.PartNum).ThenBy(o => o.MtlSeq).ToList();

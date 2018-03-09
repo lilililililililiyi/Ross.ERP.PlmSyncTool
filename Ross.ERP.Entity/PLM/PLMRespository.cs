@@ -119,12 +119,14 @@ namespace Ross.ERP.Entity
             List<MATERIAL> ListMATERIAL = BasicDatas.PLM_MATERIAL.ToList();
             List<PRODUCT> ListProduct = BasicDatas.PLM_PRODUCT.ToList();
             List<MTL> ListMtl = BasicDatas.PLM_MTL.ToList();
+            List<MACH> ListMach = BasicDatas.PLM_MACH.ToList();
             if (dt.HasValue)
             {
                 ListMPart = ListMPart.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
                 ListMATERIAL = ListMATERIAL.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
                 ListProduct = ListProduct.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
                 ListMtl = ListMtl.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListMach = ListMach.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
             }
             if (!string.IsNullOrEmpty(PartNums))
             {
@@ -132,12 +134,13 @@ namespace Ross.ERP.Entity
                 ListMATERIAL = ListMATERIAL.Where(o => PartNums.Contains(o.NO)).ToList();
                 ListProduct = ListProduct.Where(o => PartNums.Contains(o.NO)).ToList();
                 ListMtl = ListMtl.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListMach = ListMach.Where(o => PartNums.Contains(o.NO)).ToList();
             }
-            Lists = ConvertMPART(ListMPart, ListMATERIAL, ListProduct, ListMtl);
+            Lists = ConvertMPART(ListMPart, ListMATERIAL, ListProduct, ListMtl, ListMach);
             return Lists;
         }
 
-        public List<DTO_MPART> ConvertMPART(List<MPART> ListMPart, List<MATERIAL> ListMaterial, List<PRODUCT> ListProduct, List<MTL> ListMtl)
+        public List<DTO_MPART> ConvertMPART(List<MPART> ListMPart, List<MATERIAL> ListMaterial, List<PRODUCT> ListProduct, List<MTL> ListMtl, List<MACH> ListMACH = null)
         {
             List<DTO_MPART> lists = new List<DTO_MPART>();
             if (ListMPart != null && ListMPart.Count > 0)
@@ -240,6 +243,33 @@ namespace Ross.ERP.Entity
                     obj.TypeCode = "P";
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = "PC01";
+                    obj.PartRev_Approved = "";
+                    obj.PartRev_EffectiveDate = "";
+                    if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
+                    {
+                        lists.Add(obj);
+                    }
+                }
+            }
+            if (ListMACH != null && ListMACH.Count > 0)
+            {
+                foreach (var item in ListMACH)
+                {
+                    DTO_MPART obj = new DTO_MPART();
+                    obj.Company = "001";
+                    obj.CostMethod = "A";
+                    obj.IUM = "PCS";
+                    obj.PartDescription = item.NAME + " " + item.MODEL + " " + item.SPECS + " " + item.SBZT + " " + item.FACTORY + " " + item.SMEMO + " " + item.PTYPE + " " + item.ENAME;
+                    obj.PartNum = item.NO;
+                    obj.PartPlant_Plant = "MfgSys";
+                    obj.PartPlant_PrimWhse = "WGJ";
+                    obj.PartRev_RevisionNum = "";
+                    obj.PartRev_RevShortDesc = "";
+                    obj.PUM = "PCS";
+                    obj.SalesUM = "PCS";
+                    obj.TypeCode = "P";
+                    obj.UOMClassID = CvtUMClassID(obj.IUM);
+                    obj.ClassId = "PC11";
                     obj.PartRev_Approved = "";
                     obj.PartRev_EffectiveDate = "";
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)

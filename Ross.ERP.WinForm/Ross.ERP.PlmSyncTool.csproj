@@ -97,6 +97,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Epicor\Epicor.ServiceModel.dll</HintPath>
     </Reference>
+    <Reference Include="Erp.Adapters.BomSearch">
+      <HintPath>C:\Epicor\ERP10.1Client.Live\Client\Erp.Adapters.BomSearch.dll</HintPath>
+    </Reference>
     <Reference Include="Ice.Contracts.Lib.SessionMod, Version=3.1.500.0, Culture=neutral, PublicKeyToken=5d3fa3c7105d7992, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Epicor\Ice.Contracts.Lib.SessionMod.dll</HintPath>
@@ -120,6 +123,9 @@
     <Reference Include="Ice.Lib.Deployment, Version=3.1.500.0, Culture=neutral, PublicKeyToken=5d3fa3c7105d7992, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Epicor\Ice.Lib.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="Ice.Lib.EpiClientLib">
+      <HintPath>C:\Epicor\ERP10.1Client.Live\Client\Ice.Lib.EpiClientLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -149,12 +155,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExportDto\JOBMTL.cs" />
+    <Compile Include="ExportDto\JOBOM.cs" />
     <Compile Include="ExportDto\MBOM.cs" />
     <Compile Include="ExportDto\MBOM_UD.cs" />
     <Compile Include="ExportDto\MBOO.cs" />
     <Compile Include="ExportDto\MPART.cs" />
     <Compile Include="ExportDto\POWERS.cs" />
     <Compile Include="FileHelper.cs" />
+    <Compile Include="FormBOMComp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBOMComp.Designer.cs">
+      <DependentUpon>FormBOMComp.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +231,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormBOMComp.resx">
+      <DependentUpon>FormBOMComp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormConfig.resx">
       <DependentUpon>FormConfig.cs</DependentUpon>
     </EmbeddedResource>
