@@ -23,7 +23,7 @@ namespace Ross.ERP.PlmSyncTool
         public FormLogin()
         {
             InitializeComponent();
-            this.lblSoftV.Text = Application.ProductName + " v" + Application.ProductVersion;
+            this.Text = "罗斯（无锡）PLM数据同步工具" + Application.ProductName + " v" + Application.ProductVersion;
 
             Utility = new Utilities();
             SysConfig = Utility.GetSysCfg();

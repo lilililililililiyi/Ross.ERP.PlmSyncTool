@@ -14,10 +14,11 @@ namespace Ross.ERP.PlmSyncTool
 {
     public partial class FormBOMComp : Form
     {
-        ERPRepository ERP;
-        PLMRespository PLM;
+        private ERPRepository ERP;
+        private PLMRespository PLM;
         private Utilities Utility;
         private string SaveFolderPath = Application.StartupPath + @"\ExcelImport";
+        private Random Random = new Random();
         public FormBOMComp(ERPRepository _ERP, PLMRespository _PLM)
         {
             InitializeComponent();
@@ -54,8 +55,9 @@ namespace Ross.ERP.PlmSyncTool
                     {
                         #region 导出对比结果
                         var dt = Utility.ListToDataTable(BOM_DIFF, "_", "#");
-                        Utility.ExportExcel(dt, SaveFolderPath + "\\" + tBoxPartNum.Text + "BOM_DIFF" + DateTime.Now.ToString("MMddhhmmss") + ".xls");
-                        System.Diagnostics.Process.Start(SaveFolderPath + "\\" + tBoxPartNum.Text + "BOM_DIFF" + DateTime.Now.ToString("MMddhhmmss") + ".xls");
+                        string rnd = Random.Next(0, 9999).ToString();
+                        Utility.ExportExcel(dt, SaveFolderPath + "\\" + tBoxPartNum.Text + "BOM_DIFF" + rnd + ".xls");
+                        System.Diagnostics.Process.Start(SaveFolderPath + "\\" + tBoxPartNum.Text + "BOM_DIFF" + rnd + ".xls");
                         #endregion
                     }
                     else
@@ -80,8 +82,9 @@ namespace Ross.ERP.PlmSyncTool
                         BOO_DIFF = BOO_DIFF.OrderBy(o => o.PartNum).ThenBy(o => o.OprSeq).ToList();
                         #region 导出对比结果
                         var dt = Utility.ListToDataTable(BOO_DIFF, "_", "#");
-                        Utility.ExportExcel(dt, SaveFolderPath + "\\" + tBoxPartNum.Text + "BOO_DIFF" + DateTime.Now.ToString("MMddhhmmss") + ".xls");
-                        System.Diagnostics.Process.Start(SaveFolderPath + "\\" + tBoxPartNum.Text + "BOO_DIFF" + DateTime.Now.ToString("MMddhhmmss") + ".xls");
+                        string rnd = Random.Next(0, 9999).ToString();
+                        Utility.ExportExcel(dt, SaveFolderPath + "\\" + tBoxPartNum.Text + "BOO_DIFF" + rnd + ".xls");
+                        System.Diagnostics.Process.Start(SaveFolderPath + "\\" + tBoxPartNum.Text + "BOO_DIFF" + rnd + ".xls");
                         #endregion
                     }
                     else

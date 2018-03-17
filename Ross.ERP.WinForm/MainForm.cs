@@ -35,7 +35,7 @@ namespace Ross.ERP.PlmSyncTool
         public MainForm()
         {
             InitializeComponent();
-            this.Text = Application.ProductName + " v" + Application.ProductVersion;
+            this.Text = "罗斯（无锡）PLM数据同步工具" + Application.ProductName + " v" + Application.ProductVersion;
             Utility = new Utilities();
             SysConfig = Utility.GetSysCfg();
             SLabelUser.Text = BasicDatas.CurrentUser;

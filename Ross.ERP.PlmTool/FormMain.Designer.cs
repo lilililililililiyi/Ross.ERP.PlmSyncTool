@@ -36,18 +36,19 @@
             this.BtnBOMCheck = new System.Windows.Forms.Button();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.DgvMain = new System.Windows.Forms.DataGridView();
             this.PartNum = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.DgvMain = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelLoadDatas = new System.Windows.Forms.ToolStripStatusLabel();
             this.tProgBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.toolBtnRefresh = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.groupBoxTools.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMain)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +60,7 @@
             this.BtnPartCheck.TabIndex = 0;
             this.BtnPartCheck.Text = "档案检查";
             this.BtnPartCheck.UseVisualStyleBackColor = true;
+            this.BtnPartCheck.Click += new System.EventHandler(this.BtnPartCheck_Click);
             // 
             // BtnOprCheck
             // 
@@ -68,6 +70,7 @@
             this.BtnOprCheck.TabIndex = 1;
             this.BtnOprCheck.Text = "工序检查";
             this.BtnOprCheck.UseVisualStyleBackColor = true;
+            this.BtnOprCheck.Click += new System.EventHandler(this.BtnOprCheck_Click);
             // 
             // BtnUnableCheck
             // 
@@ -87,6 +90,7 @@
             this.BtnBOMCheck.TabIndex = 3;
             this.BtnBOMCheck.Text = "BOM检查";
             this.BtnBOMCheck.UseVisualStyleBackColor = true;
+            this.BtnBOMCheck.Click += new System.EventHandler(this.BtnBOMCheck_Click);
             // 
             // groupBoxTools
             // 
@@ -115,7 +119,18 @@
             this.groupBox2.Size = new System.Drawing.Size(273, 105);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "处理结果";
+            this.groupBox2.Text = "检查结果";
+            // 
+            // DgvMain
+            // 
+            this.DgvMain.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DgvMain.Location = new System.Drawing.Point(3, 17);
+            this.DgvMain.Name = "DgvMain";
+            this.DgvMain.RowTemplate.Height = 23;
+            this.DgvMain.Size = new System.Drawing.Size(267, 85);
+            this.DgvMain.TabIndex = 0;
             // 
             // PartNum
             // 
@@ -140,23 +155,13 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "物料编码";
             // 
-            // DgvMain
-            // 
-            this.DgvMain.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.DgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DgvMain.Location = new System.Drawing.Point(3, 17);
-            this.DgvMain.Name = "DgvMain";
-            this.DgvMain.RowTemplate.Height = 23;
-            this.DgvMain.Size = new System.Drawing.Size(267, 85);
-            this.DgvMain.TabIndex = 0;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelLoadDatas,
             this.tProgBar,
-            this.toolBtnRefresh});
+            this.toolBtnRefresh,
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 287);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(289, 23);
@@ -174,11 +179,6 @@
             this.tProgBar.Name = "tProgBar";
             this.tProgBar.Size = new System.Drawing.Size(100, 17);
             // 
-            // timerMain
-            // 
-            this.timerMain.Interval = 1000;
-            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
-            // 
             // toolBtnRefresh
             // 
             this.toolBtnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -189,6 +189,17 @@
             this.toolBtnRefresh.Text = "刷新";
             this.toolBtnRefresh.ButtonClick += new System.EventHandler(this.toolBtnRefresh_ButtonClick);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(131, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // timerMain
+            // 
+            this.timerMain.Interval = 1000;
+            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -198,13 +209,16 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBoxTools);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "FormMain";
             this.Text = "PLM数据自检";
             this.groupBoxTools.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DgvMain)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvMain)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -228,6 +242,7 @@
         private System.Windows.Forms.ToolStripProgressBar tProgBar;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.ToolStripSplitButton toolBtnRefresh;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
