@@ -23,7 +23,7 @@ namespace Ross.ERP.Entity.RossLive.Model
 
         public string Powers { get; set; }
 
-        [StringLength(50)]
-        public string Depart { get; set; }
+        [StringLength(10)]
+        public string DepartCode { get; set; }
     }
 }

@@ -34,11 +34,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.BtnCmpOper = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxRev = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioJob = new System.Windows.Forms.RadioButton();
+            this.radioPLM = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnOK
@@ -46,22 +51,22 @@
             this.BtnOK.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnOK.Location = new System.Drawing.Point(5, 7);
             this.BtnOK.Name = "BtnOK";
-            this.BtnOK.Size = new System.Drawing.Size(76, 50);
+            this.BtnOK.Size = new System.Drawing.Size(76, 125);
             this.BtnOK.TabIndex = 0;
-            this.BtnOK.Text = "物料对比";
+            this.BtnOK.Text = "开始对比";
             this.BtnOK.UseVisualStyleBackColor = true;
             this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // tBoxPartNum
             // 
-            this.tBoxPartNum.Location = new System.Drawing.Point(14, 33);
+            this.tBoxPartNum.Location = new System.Drawing.Point(78, 86);
             this.tBoxPartNum.Name = "tBoxPartNum";
             this.tBoxPartNum.Size = new System.Drawing.Size(100, 21);
             this.tBoxPartNum.TabIndex = 1;
             // 
             // tBoxJobNum
             // 
-            this.tBoxJobNum.Location = new System.Drawing.Point(12, 80);
+            this.tBoxJobNum.Location = new System.Drawing.Point(78, 111);
             this.tBoxJobNum.Name = "tBoxJobNum";
             this.tBoxJobNum.Size = new System.Drawing.Size(100, 21);
             this.tBoxJobNum.TabIndex = 2;
@@ -70,7 +75,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.Location = new System.Drawing.Point(12, 90);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 17);
             this.label1.TabIndex = 3;
@@ -80,7 +85,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(10, 60);
+            this.label2.Location = new System.Drawing.Point(25, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 17);
             this.label2.TabIndex = 4;
@@ -94,6 +99,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxRev);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.tBoxJobNum);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.tBoxPartNum);
@@ -101,29 +109,69 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.BtnCmpOper);
             this.splitContainer1.Panel2.Controls.Add(this.BtnOK);
-            this.splitContainer1.Size = new System.Drawing.Size(284, 122);
-            this.splitContainer1.SplitterDistance = 190;
+            this.splitContainer1.Size = new System.Drawing.Size(284, 141);
+            this.splitContainer1.SplitterDistance = 192;
             this.splitContainer1.TabIndex = 5;
             // 
-            // BtnCmpOper
+            // label3
             // 
-            this.BtnCmpOper.Enabled = false;
-            this.BtnCmpOper.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnCmpOper.Location = new System.Drawing.Point(5, 63);
-            this.BtnCmpOper.Name = "BtnCmpOper";
-            this.BtnCmpOper.Size = new System.Drawing.Size(76, 50);
-            this.BtnCmpOper.TabIndex = 1;
-            this.BtnCmpOper.Text = "工序对比";
-            this.BtnCmpOper.UseVisualStyleBackColor = true;
-            this.BtnCmpOper.Click += new System.EventHandler(this.BtnCmpOper_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(25, 64);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 17);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "版本号";
+            // 
+            // textBoxRev
+            // 
+            this.textBoxRev.Location = new System.Drawing.Point(78, 60);
+            this.textBoxRev.Name = "textBoxRev";
+            this.textBoxRev.Size = new System.Drawing.Size(100, 21);
+            this.textBoxRev.TabIndex = 8;
+            this.textBoxRev.Text = "A";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioJob);
+            this.groupBox1.Controls.Add(this.radioPLM);
+            this.groupBox1.Location = new System.Drawing.Point(8, 10);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(175, 47);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "对比选项";
+            // 
+            // radioJob
+            // 
+            this.radioJob.AutoSize = true;
+            this.radioJob.Checked = true;
+            this.radioJob.Location = new System.Drawing.Point(9, 21);
+            this.radioJob.Name = "radioJob";
+            this.radioJob.Size = new System.Drawing.Size(71, 16);
+            this.radioJob.TabIndex = 5;
+            this.radioJob.TabStop = true;
+            this.radioJob.Text = "对比工单";
+            this.radioJob.UseVisualStyleBackColor = true;
+            this.radioJob.CheckedChanged += new System.EventHandler(this.radioJob_CheckedChanged);
+            // 
+            // radioPLM
+            // 
+            this.radioPLM.AutoSize = true;
+            this.radioPLM.Location = new System.Drawing.Point(86, 21);
+            this.radioPLM.Name = "radioPLM";
+            this.radioPLM.Size = new System.Drawing.Size(65, 16);
+            this.radioPLM.TabIndex = 6;
+            this.radioPLM.Text = "对比PLM";
+            this.radioPLM.UseVisualStyleBackColor = true;
+            this.radioPLM.CheckedChanged += new System.EventHandler(this.radioPLM_CheckedChanged);
             // 
             // FormBOMComp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 122);
+            this.ClientSize = new System.Drawing.Size(284, 141);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -136,6 +184,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -148,6 +198,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button BtnCmpOper;
+        private System.Windows.Forms.RadioButton radioPLM;
+        private System.Windows.Forms.RadioButton radioJob;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxRev;
     }
 }

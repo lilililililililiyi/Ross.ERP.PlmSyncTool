@@ -32,7 +32,7 @@ namespace Ross.ERP.PlmSyncTool
         private BasicDatas BscData;
         private Entity.RossLive.Model.RossConfig RossCfg;
 
-        public MainForm()
+        public MainForm(bool isPreload = true)
         {
             InitializeComponent();
             this.Text = "罗斯（无锡）PLM数据同步工具" + Application.ProductName + " v" + Application.ProductVersion;
@@ -42,15 +42,18 @@ namespace Ross.ERP.PlmSyncTool
             CurrentDgv = this.dataGridViewMain;
             if (SysConfig != null)
             {
-                FormLoading formLoad = new FormLoading(SysConfig.ERPConn, SysConfig.PLMConn);
-                formLoad.ShowDialog();
-                formLoad.Owner = this;
                 RLD = new RossLiveRespository();
                 RossCfg = RLD.GetRossCfg();
                 ERP = new ERPRepository(SysConfig.ERPConn);
                 PLM = new PLMRespository(SysConfig.PLMConn, RossCfg.Units);
                 BscData = new BasicDatas(SysConfig.ERPConn, SysConfig.PLMConn);
                 InitData();
+                if (isPreload)
+                {
+                    FormLoading formLoad = new FormLoading(SysConfig.ERPConn, SysConfig.PLMConn);
+                    formLoad.ShowDialog();
+                    formLoad.Owner = this;
+                }
             }
             else
             {
@@ -286,10 +289,22 @@ namespace Ross.ERP.PlmSyncTool
         private void CallGetNewPart()
         {
             DateTime dt = DateTime.Parse(dtPicker.Text);
-            var ds = PLM.GetNewPLMPart(dt, tboxPartNum.Text);
+            var ds = PLM.GetNewPLMPart(new string[] { tboxPartNum.Text }, dt);
+            RLD.DeleteAllNewPart();
+            foreach (var item in ds)
+            {
+                var obj = Utilities.MapTo<Entity.RossLive.Model.RossNewParts>(item);
+                obj.SysTime = Convert.ToDateTime(item.PartRev_EffectiveDate);
+                RLD.InsertOrUpdateNewPart(obj);
+            }
+
+            if (!string.IsNullOrEmpty(tboxKeywd.Text))
+            {
+                ds = ds.Where(o => o.PartDescription.Contains(tboxKeywd.Text)).ToList();
+            }
             foreach (var it in ds)
             {
-                it.PartPlant_NonStock = Utilities.CheckNonStock(it.PartNum).ToString().ToUpper();
+                it.PartPlant_NonStock = "FALSE"; //Utilities.CheckNonStock(it.PartNum).ToString().ToUpper();
             }
             this.BeginInvoke(new Action(() =>
             {
@@ -307,12 +322,13 @@ namespace Ross.ERP.PlmSyncTool
         private void CallGetNewBOO()
         {
             string PartNum = this.tboxPartNum.Text;
+            //string SqlStr = "select * from V_BOO where PartNum='" + PartNum + "'";
+            //if (!string.IsNullOrEmpty(textBoxRev.Text))
+            //{
+            //    SqlStr += " and REVISIONNUM='"+ textBoxRev.Text + "'";
+            //}
             var ds = PLM.GetPLMBOO(PartNum);
             ds = ds.OrderBy(o => o.OprSeq).ToList();
-            foreach (var item in ds)
-            {
-                item.SubContract = item.SubContract == "TRUE" ? "1" : "0";
-            }
             this.BeginInvoke(new Action(() =>
             {
                 dataGridViewMain.DataSource = ds;
@@ -465,8 +481,13 @@ namespace Ross.ERP.PlmSyncTool
 
         private void dataGridViewMain_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var PartNum = dataGridViewMain.CurrentRow.Cells["PartNum"];
-            tboxPartNum.Text = PartNum.Value.ToString();
+            try
+            {
+                tboxPartNum.Text = dataGridViewMain.CurrentRow.Cells["PartNum"].Value.ToString();
+            }
+            catch {
+                tboxPartNum.Text = dataGridViewMain.CurrentRow.Cells["NO"].Value.ToString();
+            }
         }
 
         private void BtnExport_NewPart_Click(object sender, EventArgs e)
@@ -642,7 +663,7 @@ namespace Ross.ERP.PlmSyncTool
             DateTime dt = DateTime.Parse(dtPicker.Text);
             Task taskSync = new Task(() =>
             {
-                List<Entity.DTO.DTO_MBOM> lists = PLM.GetModBOM(dt);
+                var lists = PLM.GetV_BOM();
                 this.BeginInvoke(new Action(() =>
                 {
                     DGVBOM.DataSource = lists;
@@ -785,7 +806,7 @@ namespace Ross.ERP.PlmSyncTool
             Task taskSync = new Task(() =>
             {
                 List<Entity.DTO.DTO_MBOM> lists = new List<Entity.DTO.DTO_MBOM>();
-                ERP.GetERPBOM(tboxPartNum.Text, lists);
+                ERP.GetERPBOM(tboxPartNum.Text, lists, true, textBoxRev.Text);
                 lists = lists.OrderBy(o => o.PartNum).ThenBy(o => o.MtlSeq).ToList();
                 this.BeginInvoke(new Action(() =>
                 {
@@ -922,10 +943,7 @@ namespace Ross.ERP.PlmSyncTool
             formUpdatePart.Owner = this;
         }
 
-        private void ToolStripMenuItem_MtlAna_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Application.StartupPath + "\\MtlAnalysis.xltx");
-        }
+
 
         private void AutoCache()
         {
@@ -989,9 +1007,18 @@ namespace Ross.ERP.PlmSyncTool
             form.ShowDialog();
         }
 
+        private void ToolStripMenuItem_MtlAna_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\Excel\\MtlAnalysis.xltx");
+        }
+
         private void ToolStripMenuItem_PartPlan_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Application.StartupPath + "\\PartPlan.xltx");
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\Excel\\PartPlan.xltx");
+        }
+        private void ToolStripMenuItem_NewPartCheck_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\Excel\\V_NewPartCheck.xltx");
         }
 
         private void ToolStripMenuItem_UnitBug_Click(object sender, EventArgs e)
@@ -1005,7 +1032,7 @@ namespace Ross.ERP.PlmSyncTool
             ProgressBarBot.Value = 0;
             Task.Run(() =>
             {
-                var PLM_Part = PLM.GetNewPLMPart(dtPicker.Value);
+                var PLM_Part = PLM.GetNewPLMPart(new string[] { "1" }, null);
                 List<Entity.DTO.DTO_MPART> datas = new List<Entity.DTO.DTO_MPART>();
                 foreach (var plmpart in PLM_Part)
                 {
@@ -1058,9 +1085,16 @@ namespace Ross.ERP.PlmSyncTool
             {
                 var JobAsmblDatas = ERP.GetJobAsmbl(tboxPartNum.Text);
                 var JobMtlDatas = ERP.GetJobMtl(tboxPartNum.Text);
-                List<Entity.DTO.DTO_JOBOM> lists = new List<Entity.DTO.DTO_JOBOM>();
-                ERP.GetJobBom(lists, JobAsmblDatas, JobMtlDatas, tboxPartNum.Text);
-                dataGridViewMain.DataSource = lists.OrderBy(o => o.AssemblySeq).OrderBy(o => o.MtlSeq).ToList();
+                string mainPart = "";
+                try
+                {
+                    mainPart = JobAsmblDatas.Where(o => o.JobNum == tboxPartNum.Text && o.BomLevel == 0).FirstOrDefault().PartNum;
+                }
+                catch { }
+
+                List<Entity.DTO.DTO_MBOM> lists = new List<Entity.DTO.DTO_MBOM>();
+                ERP.GetJobBom(lists, JobAsmblDatas, JobMtlDatas, mainPart, 0, 1);
+                dataGridViewMain.DataSource = lists.ToList();
 
                 StatusLabelInfo.Text = "共获取" + lists.Count + "条数据";
                 tabControlMain.SelectedIndex = 0;
@@ -1074,6 +1108,76 @@ namespace Ross.ERP.PlmSyncTool
             FormBOMComp form = new FormBOMComp(ERP, PLM);
             form.Owner = this;
             form.ShowDialog();
+        }
+
+        private void ToolStripMenuItem_ERPMoreMtl_Click(object sender, EventArgs e)
+        {
+            ProgressRuning = true;
+            ProgressBarBot.Value = 0;
+            List<Entity.ERP.Model.Part> datas = new List<Entity.ERP.Model.Part>();
+            Task.Run(() =>
+            {
+                try
+                {
+                    using (Entity.PLM.PLMDbContext PLMDB = new Entity.PLM.PLMDbContext(SysConfig.PLMConn))
+                    {
+                        var MPART = PLMDB.MPART.Where(o => o.DEL == false).ToList();
+                        var MATERIAL = PLMDB.MATERIAL.Where(o => o.DEL == false).ToList();
+                        var PRODUCT = PLMDB.PRODUCT.Where(o => o.DEL == false).ToList();
+                        var MTL = PLMDB.MTL.Where(o => o.DEL == false).ToList();
+                        var MACH = PLMDB.MACH.Where(o => o.DEL == false).ToList();
+                        var PLMAllPart = PLM.ConvertMPART(MPART, MATERIAL, PRODUCT, MTL, MACH);
+                        foreach (var item in BasicDatas.ErpPart)
+                        {
+                            if (PLMAllPart.Where(o => o.PartNum == item.PartNum).ToList().Count() <= 0)
+                            {
+                                datas.Add(item);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ProgressRuning = false;
+                    ProgressBarBot.Value = 100;
+                    MessageBox.Show(ex.StackTrace);
+                    throw;
+                }
+                this.BeginInvoke(new Action(() =>
+                {
+                    dataGridViewMain.DataSource = datas;
+                    StatusLabelInfo.Text = "共获取" + datas.Count + "条数据";
+                    tabControlMain.SelectedTab.Text = "ERP多余数据";
+                    tabControlMain.SelectedIndex = 0;
+                    CurrentDgv = dataGridViewMain;
+                    ProgressRuning = false;
+                    ProgressBarBot.Value = 100;
+                }));
+            });
+        }
+
+        private void ToolStripMenuItem_MtlCompute_Click(object sender, EventArgs e)
+        {
+            FormMTLCompute form = new FormMTLCompute(SysConfig.PLMConn, RossCfg.Units);
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private void ToolStripMenuItem_AddPartRev_Click(object sender, EventArgs e)
+        {
+            FormPartCombined form = new FormPartCombined(ERP, PLM);
+            form.Owner = this;
+            form.ShowDialog();
+        }
+
+        private void ToolStripMenuItem_dwg_Click(object sender, EventArgs e)
+        {
+            var datas = PLM.GetV_DESF("select * from V_DESF");
+            dataGridViewMain.DataSource = datas;
+            StatusLabelInfo.Text = "共获取" + datas.Count + "条数据";
+            tabControlMain.SelectedTab.Text = "更新二维图档";
+            tabControlMain.SelectedIndex = 0;
+            CurrentDgv = dataGridViewMain;
         }
     }
 }

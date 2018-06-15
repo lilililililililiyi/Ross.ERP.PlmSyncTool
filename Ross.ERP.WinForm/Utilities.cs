@@ -362,5 +362,14 @@ namespace Ross.ERP.PlmSyncTool
                 return true;
             }
         }
+        public static decimal ToDec(object val)
+        {
+            try
+            {
+                return Convert.ToDecimal(val);
+            }
+            catch { return 0; }
+        }
+        
     }
 }

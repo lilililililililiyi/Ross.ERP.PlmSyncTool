@@ -128,10 +128,22 @@ namespace Ross.ERP.Entity
         /// </summary>
         /// <param name="PartNum"></param>
         /// <returns></returns>
-        public void GetERPBOM(string PartNum, List<DTO_MBOM> ERPBOM,  bool isChild = true)
+        public void GetERPBOM(string PartNum, List<DTO_MBOM> ERPBOM, bool isChild = true, string RevNum = "")
         {
-            var PartRev = BasicDatas.ErpPartRev.Where(o => o.PartNum == PartNum).OrderByDescending(o => o.EffectiveDate).FirstOrDefault();
-            var lists = from a in BasicDatas.ErpPartMtl.Where(a=> a.PartNum == PartNum && a.RevisionNum == PartRev.RevisionNum)
+            string PartRevNum = "";
+            if (string.IsNullOrEmpty(RevNum))
+            {
+                var PartRev = BasicDatas.ErpPartRev.Where(o => o.PartNum == PartNum).OrderByDescending(o => o.EffectiveDate).FirstOrDefault();
+                if (PartRev != null)
+                {
+                    PartRevNum = PartRev.RevisionNum;
+                }
+            }else
+            {
+                PartRevNum = RevNum;
+            }
+            
+            var lists = from a in BasicDatas.ErpPartMtl.Where(a => a.PartNum == PartNum && a.RevisionNum == PartRevNum)
                         join part in BasicDatas.ErpPart on a.PartNum equals part.PartNum
                         join partMtl in BasicDatas.ErpPart on a.MtlPartNum equals partMtl.PartNum
                         select new { a, part, partMtl };
@@ -154,7 +166,7 @@ namespace Ross.ERP.Entity
                 obj.Source = item.partMtl.TypeCode == "M" ? "自制件" : "外购件";
                 ERPBOM.Add(obj);
                 if (isChild && item.partMtl.TypeCode == "M")
-                    GetERPBOM(obj.MtlPartNum, ERPBOM, true);
+                    GetERPBOM(obj.MtlPartNum, ERPBOM, true, PartRevNum);
             }
         }
 
@@ -475,7 +487,7 @@ namespace Ross.ERP.Entity
                             ConstDB.SaveChanges();
                             ConstDB.Configuration.ValidateOnSaveEnabled = true;
                         }
-                        catch { }
+                        catch (Exception ex) { }
                         dt = dt.AddDays(-1);
                     }
                 }
@@ -490,28 +502,42 @@ namespace Ross.ERP.Entity
         /// <param name="jobnum"></param>
         /// <param name="parent"></param>
         /// <param name="isRoot"></param>
-        public void GetJobBom(List<DTO_JOBOM> lists, List<JobAsmbl> JobAsmblDatas, List<JobMtl> JobMtlDatas, string jobnum, int parent = 0, int isRoot = 1)
+        public void GetJobBom(List<DTO_MBOM> lists, List<JobAsmbl> JobAsmblDatas, List<JobMtl> JobMtlDatas, string partnum, int parent = 0, int isRoot = 1)
         {
-            var items = JobAsmblDatas.Where(o => o.Parent == parent && o.JobNum == jobnum).ToList();
-            if (isRoot == 0)
-                items = items.Where(o => o.BomLevel > 0).ToList();
-            else
-                items = items.Where(o => o.BomLevel == 0).ToList();
+            var items = JobAsmblDatas.Where(o => o.Parent == parent && o.PartNum != partnum).ToList();
+            //if (parent <= 0)
+            //{
+            //    if (isRoot == 0)
+            //        items = items.Where(o => o.BomLevel > 0).ToList();
+            //    else
+            //        items = items.Where(o => o.BomLevel == 0).ToList();
+            //}
 
             foreach (var item in items)
             {
-                AutoMapper.Mapper.Initialize(x => x.CreateMap<JobAsmbl, DTO_JOBOM>());
-                DTO_JOBOM obj = AutoMapper.Mapper.Map<DTO_JOBOM>(item);
+                DTO_MBOM obj = new DTO_MBOM();
+                obj.Company = "001";
+                obj.ECOGroupID = "manager";
+                obj.Plant = "MfgSys";
+                obj.PartNum = partnum;
+                obj.RevisionNum = "A";
+                obj.MtlSeq = item.AssemblySeq;
+                obj.MtlPartNum = item.PartNum;
+                obj.QtyPer = item.QtyPer;
+                obj.RelatedOperation = 10;
+                obj.PullAsAsm = "TRUE";
+                obj.ViewAsAsm = "TRUE";
+                lists.Add(obj);
                 if (item.Child > 0)
                 {
-                    GetJobBom(lists, JobAsmblDatas, JobMtlDatas, jobnum, item.AssemblySeq, 0);
+                    GetJobBom(lists, JobAsmblDatas, JobMtlDatas, item.PartNum, item.AssemblySeq, 0);
                 }
 
                 #region 获取第一个工序下的物料
                 int firstOper = 0;
                 try
                 {
-                    firstOper = GetJobOper(jobnum).Where(o => o.AssemblySeq == item.AssemblySeq).OrderBy(o => o.OprSeq).FirstOrDefault().OprSeq;
+                    firstOper = GetJobOper(item.JobNum).Where(o => o.AssemblySeq == item.AssemblySeq).OrderBy(o => o.OprSeq).FirstOrDefault().OprSeq;
                 }
                 catch { firstOper = 10; }
                 if (firstOper > 0)
@@ -521,20 +547,24 @@ namespace Ross.ERP.Entity
                     {
                         foreach (var mtl in jobMtls)
                         {
-                            AutoMapper.Mapper.Initialize(x => x.CreateMap<Entity.ERP.Model.JobMtl, DTO_JOBOM>());
-                            DTO_JOBOM dja = AutoMapper.Mapper.Map<DTO_JOBOM>(mtl);
-                            dja.BomLevel = item.BomLevel + 1;
-                            dja.RelatedOperation = firstOper;
-                            dja.Parent = item.AssemblySeq;
-                            dja.IsMtl = true;
-                            dja.MtlSeq = mtl.MtlSeq;
-                            lists.Add(dja);
+                            DTO_MBOM mtlobj = new DTO_MBOM();
+                            mtlobj.Company = "001";
+                            mtlobj.ECOGroupID = "manager";
+                            mtlobj.Plant = "MfgSys";
+                            mtlobj.PartNum = item.PartNum;
+                            mtlobj.RevisionNum = "A";
+                            mtlobj.MtlSeq = mtl.MtlSeq;
+                            mtlobj.MtlPartNum = mtl.PartNum;
+                            mtlobj.MtlPartDescription = mtl.Description;
+                            mtlobj.QtyPer = mtl.QtyPer;
+                            mtlobj.RelatedOperation = 10;
+                            mtlobj.PullAsAsm = "FALSE";
+                            mtlobj.ViewAsAsm = "FALSE";
+                            lists.Add(mtlobj);
                         }
                     }
                 }
-                #endregion
-
-                lists.Add(obj);
+                #endregion                
             }
         }
     }

@@ -29,6 +29,10 @@ namespace Ross.ERP.Entity.PLM
         public virtual DbSet<MTL> MTL { get; set; }
         public virtual DbSet<MTL_OBJOF> MTL_OBJOF { get; set; }
         public virtual DbSet<MACH> MACH { get; set; }
+        public virtual DbSet<V_PART> V_PART { get; set; }
+        public virtual DbSet<V_BOO> V_BOO { get; set; }
+        public virtual DbSet<V_BOM> V_BOM { get; set; }
+        public virtual DbSet<V_DESF> V_DESF { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

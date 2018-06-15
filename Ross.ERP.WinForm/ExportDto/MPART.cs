@@ -30,4 +30,12 @@ namespace Ross.ERP.PlmSyncTool.ExportDto
         public string NonStock { get; set; }
         public string PartWhse_WarehouseCode { get; set; }
     }
+
+    public class PARTREV_DEL
+    {
+        public string Company { get; set; }
+        public string PartNum { get; set; }
+        public string RevisionNum { get; set; }
+        public string AltMethod { get; set; }
+    }
 }

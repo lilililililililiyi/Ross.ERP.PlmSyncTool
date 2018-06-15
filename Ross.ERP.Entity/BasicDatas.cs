@@ -61,6 +61,19 @@ namespace Ross.ERP.Entity
         {
             ERP_ConnStr = _ERP_ConnStr;
             PLM_ConnStr = _PLM_ConnStr;
+            ErpPart = new List<Part>();
+            StockPart = new List<StockPart>();
+            ErpPartRev = new List<PartRev>();
+            ErpPartMtl = new List<PartMtl>();
+            ErpOpMaster = new List<OpMaster>();
+            PLM_MBOM = new List<MBOM>();
+            PLM_MPART = new List<MPART>();
+            PLM_CONS = new List<CONS>();
+            PLM_CONS_OBJOF = new List<CONS_OBJOF>();
+            PLM_MATERIAL = new List<MATERIAL>();
+            PLM_PRODUCT = new List<PRODUCT>();
+            PLM_MTL = new List<MTL>();
+            PLM_MACH = new List<MACH>();
         }
 
         public void LoadERPPart()

@@ -12,12 +12,12 @@ namespace Ross.ERP.Entity
     {
         private string Connection { get; set; }
         private PLM.PLMDbContext PLMDB;
-        private IList<DTO_Unit> Units;
+        private List<DTO_Unit> Units;
         public PLMRespository(string ConnStr, string ConfigUnit = "")
         {
             Connection = ConnStr;
             PLMDB = new PLM.PLMDbContext(ConnStr);
-            Units = JsonConvert.DeserializeObject<IList<DTO_Unit>>(ConfigUnit);
+            Units = JsonConvert.DeserializeObject<List<DTO_Unit>>(ConfigUnit);
         }
 
         public async Task<List<MBOM>> GetMBOM()
@@ -112,31 +112,34 @@ namespace Ross.ERP.Entity
         /// </summary>
         /// <param name="LastGetTime"></param>
         /// <returns></returns>
-        public List<DTO_MPART> GetNewPLMPart(DateTime? dt, string PartNums = "")
+        public List<DTO_MPART> GetNewPLMPart(string[] PartNums, DateTime? dt)
         {
             List<DTO_MPART> Lists = new List<DTO_MPART>();
-            List<MPART> ListMPart = BasicDatas.PLM_MPART.ToList();
-            List<MATERIAL> ListMATERIAL = BasicDatas.PLM_MATERIAL.ToList();
-            List<PRODUCT> ListProduct = BasicDatas.PLM_PRODUCT.ToList();
-            List<MTL> ListMtl = BasicDatas.PLM_MTL.ToList();
-            List<MACH> ListMach = BasicDatas.PLM_MACH.ToList();
+            List<MPART> ListMPart = new List<MPART>();
+            List<MATERIAL> ListMATERIAL = new List<MATERIAL>();
+            List<PRODUCT> ListProduct = new List<PRODUCT>();
+            List<MTL> ListMtl = new List<MTL>();
+            List<MACH> ListMach = new List<MACH>();
             if (dt.HasValue)
             {
-                ListMPart = ListMPart.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
-                ListMATERIAL = ListMATERIAL.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
-                ListProduct = ListProduct.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
-                ListMtl = ListMtl.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
-                ListMach = ListMach.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListMPart = BasicDatas.PLM_MPART.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListMATERIAL = BasicDatas.PLM_MATERIAL.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListProduct = BasicDatas.PLM_PRODUCT.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListMtl = BasicDatas.PLM_MTL.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
+                ListMach = BasicDatas.PLM_MACH.Where(o => o.CTIME >= dt || o.MTIME >= dt).ToList();
             }
-            if (!string.IsNullOrEmpty(PartNums))
+            if (PartNums.Length > 0 && !string.IsNullOrEmpty(PartNums[0]))
             {
-                ListMPart = ListMPart.Where(o => PartNums.Contains(o.NO)).ToList();
-                ListMATERIAL = ListMATERIAL.Where(o => PartNums.Contains(o.NO)).ToList();
-                ListProduct = ListProduct.Where(o => PartNums.Contains(o.NO)).ToList();
-                ListMtl = ListMtl.Where(o => PartNums.Contains(o.NO)).ToList();
-                ListMach = ListMach.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListMPart = BasicDatas.PLM_MPART.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListMATERIAL = BasicDatas.PLM_MATERIAL.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListProduct = BasicDatas.PLM_PRODUCT.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListMtl = BasicDatas.PLM_MTL.Where(o => PartNums.Contains(o.NO)).ToList();
+                ListMach = BasicDatas.PLM_MACH.Where(o => PartNums.Contains(o.NO)).ToList();
             }
-            Lists = ConvertMPART(ListMPart, ListMATERIAL, ListProduct, ListMtl, ListMach);
+            if (ListMPart.Count > 0 || ListMATERIAL.Count > 0 || ListProduct.Count > 0 || ListMtl.Count > 0 || ListMach.Count > 0)
+            {
+                Lists = ConvertMPART(ListMPart, ListMATERIAL, ListProduct, ListMtl, ListMach);
+            }
             return Lists;
         }
 
@@ -151,19 +154,19 @@ namespace Ross.ERP.Entity
                     obj.Company = "001";
                     obj.CostMethod = "A";
                     obj.IUM = CvtUM(item.UNIT);
-                    obj.PartDescription = item.NAME + " " + item.ASUSER01 + " " + item.SPECS + " " + item.MTLMARK + " " + item.SMEMO + " " + item.ASUSER02 + " " + item.EORIGINNO + " " + item.STANDARDNO;
+                    obj.PartDescription = item.NAME + " " + item.ENAME + " " + item.ASUSER01 + " " + item.SPECS + " " + item.MTLMARK + " " + item.SMEMO + " " + item.ASUSER02 + " " + item.STANDARDNO;
                     obj.PartNum = item.NO;
                     obj.PartPlant_Plant = "MfgSys";
                     obj.PartPlant_PrimWhse = ChkWGJ(item.SMEMO, "WGJ", "BCP");
                     obj.PartRev_RevisionNum = ChkWGJ(item.SMEMO, "", "A");
                     obj.PartRev_RevShortDesc = ChkWGJ(item.SMEMO, "", "A");
-                    obj.PUM = CvtUM(item.UNIT);
-                    obj.SalesUM = CvtUM(item.UNIT);
+                    obj.PUM = obj.IUM;
+                    obj.SalesUM = obj.IUM;
                     obj.TypeCode = ChkWGJ(item.SMEMO, "P", "M");
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = CvtClssId(obj.TypeCode, obj.PartNum);
                     obj.PartRev_Approved = obj.TypeCode == "M" ? "TRUE" : "";
-                    obj.PartRev_EffectiveDate = obj.TypeCode == "M" ? DateTime.Now.ToString() : "";
+                    obj.PartRev_EffectiveDate = (item.CTIME != null ? item.CTIME.Value : DateTime.Now).ToShortDateString();
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
                     {
                         lists.Add(obj);
@@ -178,19 +181,19 @@ namespace Ross.ERP.Entity
                     obj.Company = "001";
                     obj.CostMethod = "A";
                     obj.IUM = CvtUM(item.MTLUNITNAME);
-                    obj.PartDescription = item.NAME + " " + item.MTLSPECS + " " + item.MTLCATANAME + " " + item.MTLMARK + " " + item.MTLSTANDNO + " " + item.MTLDENSITY + " " + item.SMEMO;
+                    obj.PartDescription = item.NAME + " " + item.ENAME + " " + item.MTLSPECS + " " + item.MTLCATANAME + " " + item.MTLMARK + " " + item.MTLSTANDNO + " " + item.MTLDENSITY + " " + item.SMEMO;
                     obj.PartNum = item.NO;
                     obj.PartPlant_Plant = "MfgSys";
                     obj.PartPlant_PrimWhse = "WGJ";
                     obj.PartRev_RevisionNum = "";
                     obj.PartRev_RevShortDesc = "";
-                    obj.PUM = CvtUM(item.MTLUNITNAME);
-                    obj.SalesUM = CvtUM(item.MTLUNITNAME);
+                    obj.PUM = obj.IUM;
+                    obj.SalesUM = obj.IUM;
                     obj.TypeCode = "P";
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = CvtClssId("P", obj.PartNum);
                     obj.PartRev_Approved = obj.TypeCode == "M" ? "TRUE" : "";
-                    obj.PartRev_EffectiveDate = obj.TypeCode == "M" ? DateTime.Now.ToString() : "";
+                    obj.PartRev_EffectiveDate = (item.CTIME != null ? item.CTIME.Value : DateTime.Now).ToShortDateString();
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
                     {
                         lists.Add(obj);
@@ -205,7 +208,7 @@ namespace Ross.ERP.Entity
                     obj.Company = "001";
                     obj.CostMethod = "A";
                     obj.IUM = "PCS";
-                    obj.PartDescription = item.NAME + " " + item.SERIES + " " + item.DESCRIBE + " " + item.SMEMO;
+                    obj.PartDescription = item.NAME + " " + item.ENAME + " " + item.SERIES + " " + item.DESCRIBE + " " + item.SMEMO;
                     obj.PartNum = item.NO;
                     obj.PartPlant_Plant = "MfgSys";
                     obj.PartPlant_PrimWhse = "WGJ";
@@ -217,7 +220,7 @@ namespace Ross.ERP.Entity
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = "PC06";
                     obj.PartRev_Approved = "TRUE";
-                    obj.PartRev_EffectiveDate = DateTime.Now.ToString();
+                    obj.PartRev_EffectiveDate = (item.CTIME != null ? item.CTIME.Value : DateTime.Now).ToShortDateString();
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
                     {
                         lists.Add(obj);
@@ -232,19 +235,19 @@ namespace Ross.ERP.Entity
                     obj.Company = "001";
                     obj.CostMethod = "A";
                     obj.IUM = CvtUM(item.UNITNAME);
-                    obj.PartDescription = item.NAME + " " + item.XH + " " + item.GG + " " + item.CL + " " + item.ZZS + " " + item.PTYPE + " " + item.SMEMO;
+                    obj.PartDescription = item.NAME + " " + item.ENAME + " " + item.XH + " " + item.GG + " " + item.CL + " " + item.ZZS + " " + item.PTYPE + " " + item.FSIZE + " " + item.SPECS + " " + item.SMEMO;
                     obj.PartNum = item.NO;
                     obj.PartPlant_Plant = "MfgSys";
                     obj.PartPlant_PrimWhse = "WGJ";
                     obj.PartRev_RevisionNum = "";
                     obj.PartRev_RevShortDesc = "";
-                    obj.PUM = CvtUM(item.UNITNAME);
-                    obj.SalesUM = CvtUM(item.UNITNAME);
+                    obj.PUM = obj.IUM;
+                    obj.SalesUM = obj.IUM;
                     obj.TypeCode = "P";
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = "PC01";
                     obj.PartRev_Approved = "";
-                    obj.PartRev_EffectiveDate = "";
+                    obj.PartRev_EffectiveDate = (item.CTIME != null ? item.CTIME.Value : DateTime.Now).ToShortDateString();
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
                     {
                         lists.Add(obj);
@@ -259,7 +262,7 @@ namespace Ross.ERP.Entity
                     obj.Company = "001";
                     obj.CostMethod = "A";
                     obj.IUM = "PCS";
-                    obj.PartDescription = item.NAME + " " + item.MODEL + " " + item.SPECS + " " + item.SBZT + " " + item.FACTORY + " " + item.SMEMO + " " + item.PTYPE + " " + item.ENAME;
+                    obj.PartDescription = item.NAME + " " + item.ENAME + " " + item.MODEL + " " + item.SPECS + " " + item.SBZT + " " + item.FACTORY + " " + item.SMEMO + " " + item.PTYPE + " " + item.ENAME;
                     obj.PartNum = item.NO;
                     obj.PartPlant_Plant = "MfgSys";
                     obj.PartPlant_PrimWhse = "WGJ";
@@ -271,7 +274,7 @@ namespace Ross.ERP.Entity
                     obj.UOMClassID = CvtUMClassID(obj.IUM);
                     obj.ClassId = "PC11";
                     obj.PartRev_Approved = "";
-                    obj.PartRev_EffectiveDate = "";
+                    obj.PartRev_EffectiveDate = (item.CTIME != null ? item.CTIME.Value : DateTime.Now).ToShortDateString();
                     if (lists.Where(o => o.PartNum == item.NO).Count() <= 0)
                     {
                         lists.Add(obj);
@@ -313,14 +316,14 @@ namespace Ross.ERP.Entity
                 obj.Company = "001";
                 obj.CostMethod = "A";
                 obj.IUM = CvtUM(item.UNIT);
-                obj.PartDescription = item.NAME + " " + item.ASUSER01 + " " + item.SPECS + " " + item.MTLMARK + " " + item.SMEMO + " " + item.ASUSER02 + " " + item.EORIGINNO + " " + item.STANDARDNO;
+                obj.PartDescription = item.NAME + " " + item.ASUSER01 + " " + item.SPECS + " " + item.MTLMARK + " " + item.SMEMO + " " + item.ASUSER02 + " " + item.STANDARDNO;
                 obj.PartNum = string.IsNullOrEmpty(item.NO) ? "" : item.NO.Trim();
                 obj.PartPlant_Plant = "MfgSys";
                 obj.PartPlant_PrimWhse = ChkWGJ(item.SMEMO, "WGJ", "BCP");
                 obj.PartRev_RevisionNum = ChkWGJ(item.SMEMO, "", "A");
                 obj.PartRev_RevShortDesc = ChkWGJ(item.SMEMO, "", "A");
-                obj.PUM = CvtUM(item.UNIT);
-                obj.SalesUM = CvtUM(item.UNIT);
+                obj.PUM = obj.IUM;
+                obj.SalesUM = obj.IUM;
                 obj.TypeCode = ChkWGJ(item.SMEMO, "P", "M");
                 obj.UOMClassID = CvtUMClassID(obj.IUM);
                 obj.ClassId = CvtClssId(obj.TypeCode, obj.PartNum);
@@ -341,8 +344,8 @@ namespace Ross.ERP.Entity
                 obj.PartPlant_PrimWhse = "WGJ";
                 obj.PartRev_RevisionNum = "";
                 obj.PartRev_RevShortDesc = "";
-                obj.PUM = CvtUM(item.MTLUNITNAME);
-                obj.SalesUM = CvtUM(item.MTLUNITNAME);
+                obj.PUM = obj.IUM;
+                obj.SalesUM = obj.IUM;
                 obj.TypeCode = "P";
                 obj.UOMClassID = CvtUMClassID(obj.IUM);
                 obj.ClassId = CvtClssId("P", obj.PartNum);
@@ -431,7 +434,7 @@ namespace Ross.ERP.Entity
                 obj.RevisionNum = "A";
                 obj.ViewAsAsm = ChkWGJ(item.partmtl.SMEMO, "FALSE", "TRUE");
                 obj.Source = item.partmtl.SOURCE;
-                if (MBOM.Where(o => o.Company == obj.Company && o.PartNum == obj.PartNum && o.MtlSeq == obj.MtlSeq).Count() <= 0)
+                if (MBOM.Where(o => o.Company == obj.Company && o.PartNum == obj.PartNum && o.MtlSeq == obj.MtlSeq && o.MtlPartNum == obj.MtlPartNum).Count() <= 0)
                 {
                     MBOM.Add(obj);
                 }
@@ -455,13 +458,68 @@ namespace Ross.ERP.Entity
                 obj.RevisionNum = "A";
                 obj.ViewAsAsm = "FALSE";
                 obj.Source = item.mp.SOURCE;
-                if (MBOM.Where(o => o.Company == obj.Company && o.PartNum == obj.PartNum && o.MtlSeq == obj.MtlSeq).Count() <= 0)
+                if (MBOM.Where(o => o.Company == obj.Company && o.PartNum == obj.PartNum && o.MtlSeq == obj.MtlSeq && o.MtlPartNum == obj.MtlPartNum).Count() <= 0)
                 {
                     MBOM.Add(obj);
                 }
                 if (isChild && obj.PullAsAsm == "TRUE")
                     GetPLMBOM(obj.MtlPartNum, MBOM);
             }
+        }
+
+        public List<DTO_MBOM> GetPLMBOM(string PartNum)
+        {
+            List<DTO_MBOM> MBOM = new List<DTO_MBOM>();
+            var data = from a in BasicDatas.PLM_MBOM
+                       join b in BasicDatas.PLM_MPART on a.PID equals b.ID
+                       join c in BasicDatas.PLM_MPART on a.CID equals c.ID
+                       where b.NO == PartNum
+                       select new { bom = a, part = b, partmtl = c };
+            var data2 = from cn in BasicDatas.PLM_CONS
+                        join cno in BasicDatas.PLM_CONS_OBJOF on cn.ID equals cno.ITEMID2
+                        join mp in BasicDatas.PLM_MPART on cno.ITEMID1 equals mp.ID
+                        where mp.NO == PartNum
+                        select new { cn, cno, mp };
+
+            foreach (var item in data)
+            {
+                DTO_MBOM obj = new DTO_MBOM();
+                obj.Company = "001";
+                obj.ECOGroupID = "manager";
+                obj.MtlPartNum = item.partmtl.NO.Trim();
+                obj.MtlPartDescription = item.partmtl.NAME;
+                obj.MtlSeq = item.bom.BOMPST.Value;
+                obj.PartDescription = item.part.NAME;
+                obj.PartNum = item.part.NO.Trim();
+                obj.Plant = "MfgSys";
+                obj.PullAsAsm = ChkWGJ(item.partmtl.SMEMO, "FALSE", "TRUE");
+                obj.QtyPer = item.bom.BNUM.Value;
+                obj.RelatedOperation = 10;
+                obj.RevisionNum = "A";
+                obj.ViewAsAsm = ChkWGJ(item.partmtl.SMEMO, "FALSE", "TRUE");
+                obj.Source = item.partmtl.SOURCE;
+                MBOM.Add(obj);
+            }
+            foreach (var item in data2)
+            {
+                DTO_MBOM obj = new DTO_MBOM();
+                obj.Company = "001";
+                obj.ECOGroupID = "manager";
+                obj.MtlPartNum = item.cn.NO;
+                obj.MtlPartDescription = item.cn.NAME;
+                obj.MtlSeq = 999;
+                obj.PartDescription = item.mp.NAME;
+                obj.PartNum = item.mp.NO;
+                obj.Plant = "MfgSys";
+                obj.PullAsAsm = "FALSE";
+                obj.QtyPer = item.cn.MTLMZ.HasValue ? item.cn.MTLMZ.Value : 0;
+                obj.RelatedOperation = 10;
+                obj.RevisionNum = "A";
+                obj.ViewAsAsm = "FALSE";
+                obj.Source = item.mp.SOURCE;
+                MBOM.Add(obj);
+            }
+            return MBOM;
         }
         private string ChkWGJ(string val, string rtn, string def)
         {
@@ -478,7 +536,7 @@ namespace Ross.ERP.Entity
             }
         }
 
-        public List<DTO_MBOO> GetPLMBOO(string PartNum)
+        public List<DTO_MBOO> GetPLMBOO(string PartNum, bool IsDefault = false, string OpCodeDefault = "10001")
         {
             List<DTO_MBOO> result = new List<DTO_MBOO>();
             using (PLM.PLMDbContext PLMDB = new PLM.PLMDbContext(Connection))
@@ -490,26 +548,51 @@ namespace Ross.ERP.Entity
                            join e in PLMDB.MPART on d.ITEMID1 equals e.ID
                            where e.NO.Trim() == PartNum.Trim() && a.DEL == false && b.DEL == false && c.DEL == false && d.DEL == false && e.DEL == false && a.WKAID != "3" && b.WKAID != "3" && c.WKAID != "3" && d.WKAID != "3" && e.WKAID != "3" && a.STATE == "A" && a.GNO.Value > 0 && c.SEL == true
                            select new { pc = a, pco = b, pr = c, pro = d, mp = e };
-
-                foreach (var item in data)
+                if (data != null && data.Count() > 0)
                 {
-                    DTO_MBOO obj = new DTO_MBOO();
-                    obj.Company = "001";
-                    obj.DaysOut = IsSubcontract(item.pc.NO) ? "5" : "";
-                    obj.ECOGroupID = "manager";
-                    obj.LaborEntryMethod = "T";
-                    obj.OpCode = item.pc.NO;
-                    obj.OprComment = item.pc.DETAILS;
-                    obj.OprSeq = item.pc.GNO.HasValue ? int.Parse(item.pc.GNO.Value.ToString()) : 0;
-                    obj.PartDescription = item.mp.NAME;
-                    obj.PartNum = item.mp.NO;
-                    obj.Plant = "MfgSys";
-                    obj.ProdStandard = (item.pc.MACHT.HasValue ? item.pc.MACHT.Value : 0) + (item.pc.PRET.HasValue ? item.pc.PRET.Value : 0);
-                    obj.RevisionNum = "A";
-                    obj.StdFormat = "HP";
-                    obj.SubContract = IsSubcontract(item.pc.NO) ? "TRUE" : "";
-                    obj.VendorNumVendorID = IsSubcontract(item.pc.NO) ? "999" : "";
-                    result.Add(obj);
+                    foreach (var item in data)
+                    {
+                        DTO_MBOO obj = new DTO_MBOO();
+                        obj.Company = "001";
+                        obj.DaysOut = IsSubcontract(item.pc.NO) ? "5" : "";
+                        obj.ECOGroupID = "manager";
+                        obj.LaborEntryMethod = "T";
+                        obj.OpCode = CvtOper(item.pc.NO);
+                        obj.OprComment = item.pc.DETAILS;
+                        obj.OprSeq = item.pc.GNO.HasValue ? int.Parse(item.pc.GNO.Value.ToString()) : 0;
+                        obj.PartDescription = item.mp.NAME;
+                        obj.PartNum = item.mp.NO;
+                        obj.Plant = "MfgSys";
+                        obj.ProdStandard = (item.pc.MACHT.HasValue ? item.pc.MACHT.Value : 0) + (item.pc.PRET.HasValue ? item.pc.PRET.Value : 0);
+                        obj.RevisionNum = "A";
+                        obj.StdFormat = "HP";
+                        obj.SubContract = IsSubcontract(item.pc.NO) ? "TRUE" : "";
+                        obj.VendorNumVendorID = IsSubcontract(item.pc.NO) ? "999" : "";
+                        result.Add(obj);
+                    }
+                }
+                else
+                {
+                    if (IsDefault)
+                    {
+                        DTO_MBOO obj = new DTO_MBOO();
+                        obj.Company = "001";
+                        obj.DaysOut = "";
+                        obj.ECOGroupID = "manager";
+                        obj.LaborEntryMethod = "T";
+                        obj.OpCode = OpCodeDefault;
+                        obj.OprComment = "";
+                        obj.OprSeq = 10;
+                        obj.PartDescription = "";
+                        obj.PartNum = PartNum;
+                        obj.Plant = "MfgSys";
+                        obj.ProdStandard = 0;
+                        obj.RevisionNum = "A";
+                        obj.StdFormat = "HP";
+                        obj.SubContract = "";
+                        obj.VendorNumVendorID = "";
+                        result.Add(obj);
+                    }
                 }
             }
             return result;
@@ -563,6 +646,48 @@ namespace Ross.ERP.Entity
                 }
             }
             return result;
+        }
+
+        public List<V_DESF> GetV_DESF(string Sql)
+        {
+            return PLMDB.V_DESF.SqlQuery(Sql).ToList();
+        }
+        public List<V_PART> GetV_PART(string Sql = "")
+        {
+            if (string.IsNullOrEmpty(Sql))
+                return PLMDB.V_PART.ToList();
+            else
+                return PLMDB.V_PART.SqlQuery(Sql).ToList();
+        }
+        public List<V_BOO> GetV_BOO(string Sql = "")
+        {
+            if (string.IsNullOrEmpty(Sql))
+                return PLMDB.V_BOO.ToList();
+            else
+                return PLMDB.V_BOO.SqlQuery(Sql).ToList();
+        }
+        public List<V_BOM> GetV_BOM(string Sql = "")
+        {
+            if (string.IsNullOrEmpty(Sql))
+                return PLMDB.V_BOM.ToList();
+            else
+                return PLMDB.V_BOM.SqlQuery(Sql).ToList();
+        }
+        /// <summary>
+        /// 新老工序代码转换
+        /// </summary>
+        /// <param name="opcode"></param>
+        /// <returns></returns>
+        private string CvtOper(string opcode)
+        {
+            try
+            {
+                return BasicDatas.ErpOpMaster.Where(o => o.CommentText.Contains(opcode)).FirstOrDefault().OpCode;
+            }
+            catch
+            {
+                return opcode;
+            }
         }
     }
 }

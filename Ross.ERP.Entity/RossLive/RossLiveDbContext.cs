@@ -17,6 +17,8 @@ namespace Ross.ERP.Entity.RossLive
         public virtual DbSet<RossUsers> RossUsers { get; set; }
         public virtual DbSet<UpdateLogs> UpdateLogs { get; set; }
         public virtual DbSet<RossConfig> RossConfig { get; set; }
+        public virtual DbSet<PartDegs> PartDegs { get; set; }
+        public virtual DbSet<RossNewParts> RossNewParts { get; set; }
 
     }
 }

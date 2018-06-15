@@ -151,5 +151,41 @@ namespace Ross.ERP.Entity
                 return e.Message;
             }
         }
+
+        public List<PartDegs> GetPartDeg(string partnum="")
+        {
+            var datas = RLDB.PartDegs.ToList();
+            if (!string.IsNullOrEmpty(partnum))
+            {
+                datas = datas.Where(o => o.PartNum == partnum).ToList();
+            }
+            return datas;
+        }
+        public int DeleteAllNewPart()
+        {
+            return RLDB.Database.ExecuteSqlCommand("DELETE FROM RossNewParts");
+        }
+        
+        public int InsertOrUpdateNewPart(RossNewParts input)
+        {
+            int result = 0;
+            try
+            {
+                if (input.ID.Equals(0))
+                {
+                    RLDB.RossNewParts.Add(input);
+                    RLDB.SaveChanges();
+                    result = input.ID;
+                }
+                else
+                {
+                    RLDB.Entry(input).State = EntityState.Modified;
+                    RLDB.SaveChanges();
+                    result = input.ID;
+                }
+            }
+            catch(Exception ex) { }
+            return result;
+        }
     }
 }

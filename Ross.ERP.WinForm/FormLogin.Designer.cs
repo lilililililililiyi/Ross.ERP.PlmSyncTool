@@ -36,6 +36,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
+            this.cboxPreload = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -124,6 +125,18 @@
             this.btnSetting.UseVisualStyleBackColor = false;
             this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
+            // cboxPreload
+            // 
+            this.cboxPreload.AutoSize = true;
+            this.cboxPreload.Checked = true;
+            this.cboxPreload.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxPreload.Location = new System.Drawing.Point(159, 172);
+            this.cboxPreload.Name = "cboxPreload";
+            this.cboxPreload.Size = new System.Drawing.Size(72, 16);
+            this.cboxPreload.TabIndex = 11;
+            this.cboxPreload.Text = "预载数据";
+            this.cboxPreload.UseVisualStyleBackColor = true;
+            // 
             // FormLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -132,6 +145,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(404, 202);
+            this.Controls.Add(this.cboxPreload);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnCancel);
@@ -164,5 +178,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.CheckBox cboxPreload;
     }
 }

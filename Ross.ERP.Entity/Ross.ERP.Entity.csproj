@@ -148,12 +148,16 @@
     <Compile Include="ERP\Model\Vendor.cs" />
     <Compile Include="ERP\Model\VendPart.cs" />
     <Compile Include="ERP\Model\WhseBin.cs" />
+    <Compile Include="PLM\Model\V_BOM.cs" />
+    <Compile Include="PLM\Model\V_BOO.cs" />
+    <Compile Include="PLM\Model\V_PART.cs" />
     <Compile Include="PLM\Model\MACH.cs" />
     <Compile Include="PLM\Model\MTL.cs" />
     <Compile Include="PLM\Model\MTL_OBJOF.cs" />
     <Compile Include="PLM\Model\PRODUCT.cs" />
     <Compile Include="PLM\Model\PRODUCT_OF_JXPART.cs" />
     <Compile Include="PLM\Model\PRODUCT_OF_PART.cs" />
+    <Compile Include="PLM\Model\V_DESF.cs" />
     <Compile Include="PLM\PLMRespository.cs" />
     <Compile Include="PLM\Model\CONS.cs" />
     <Compile Include="PLM\Model\CONS_OBJOF.cs" />
@@ -168,7 +172,10 @@
     <Compile Include="PLM\Model\PROCESS_OBJOF.cs" />
     <Compile Include="BasicDatas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RossLive\Model\BOMPart.cs" />
+    <Compile Include="RossLive\Model\PartDegs.cs" />
     <Compile Include="RossLive\Model\RossConfig.cs" />
+    <Compile Include="RossLive\Model\RossNewParts.cs" />
     <Compile Include="RossLive\Model\RossPowers.cs" />
     <Compile Include="RossLive\Model\RossUsers.cs" />
     <Compile Include="RossLive\Model\UpdateLogs.cs" />

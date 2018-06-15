@@ -34,10 +34,11 @@ namespace Ross.ERP.PlmSyncTool
             progressBarSync.Value = 0;
             labelPecent.Text = "0%";
             labelSyncStatus.Text = "";
+
             string contents = rtboxPartNums.Text.Trim();
             if (!string.IsNullOrEmpty(contents))
             {
-                string[] PartNums = contents.Split('\n');
+                string[] PartNums = contents.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                 if (PartNums.Length > 0)
                 {
                     labelSyncStatus.Text = "物料数据开始更新";
@@ -271,23 +272,6 @@ namespace Ross.ERP.PlmSyncTool
             else
                 dgvMain.DataSource = BasicDatas.StockPart;
         }
-
-        private void rtboxPartNums_KeyDown(object sender, KeyEventArgs e)
-        {
-            //粘贴去除文本格式
-            if (e.Control && e.KeyCode == Keys.V)
-            {
-                IDataObject dataObj = Clipboard.GetDataObject();
-                if (dataObj.GetDataPresent(DataFormats.StringFormat))
-                {
-                    e.Handled = true;
-                    var txt = (string)Clipboard.GetData(DataFormats.StringFormat);
-                    txt = txt.Trim().Replace(" ", "");
-                    Clipboard.Clear();
-                    Clipboard.SetData(DataFormats.StringFormat, txt);
-                    rtboxPartNums.Paste();
-                }
-            }
-        }
+        
     }
 }

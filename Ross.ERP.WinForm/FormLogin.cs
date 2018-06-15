@@ -41,6 +41,10 @@ namespace Ross.ERP.PlmSyncTool
                         AutoUpdate.EnableRaisingEvents = true;
                         AutoUpdate.Start();
                     }
+                    else
+                    {
+                        System.Environment.Exit(0);
+                    }
                 }
             }
             else
@@ -86,7 +90,7 @@ namespace Ross.ERP.PlmSyncTool
                     {
                         //BasicDatas.CurrentUser = EpicorSession.UserID;                           
                         BasicDatas.CurrentUser = User.DcdUserID;
-                        MainForm mainForm = new MainForm();
+                        MainForm mainForm = new MainForm(cboxPreload.Checked);
                         mainForm.Show();
                         this.Hide();
                     }

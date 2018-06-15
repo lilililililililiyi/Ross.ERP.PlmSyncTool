@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rtboxPartNums = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.processSync = new System.Diagnostics.Process();
@@ -42,6 +41,7 @@
             this.toolBtnDel = new System.Windows.Forms.ToolStripButton();
             this.toolTboxPartNum = new System.Windows.Forms.ToolStripTextBox();
             this.toolBtnSearch = new System.Windows.Forms.ToolStripButton();
+            this.rtboxPartNums = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -49,17 +49,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // rtboxPartNums
-            // 
-            this.rtboxPartNums.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtboxPartNums.Font = new System.Drawing.Font("Verdana", 9F);
-            this.rtboxPartNums.Location = new System.Drawing.Point(0, 0);
-            this.rtboxPartNums.Name = "rtboxPartNums";
-            this.rtboxPartNums.Size = new System.Drawing.Size(198, 261);
-            this.rtboxPartNums.TabIndex = 0;
-            this.rtboxPartNums.Text = "";
-            this.rtboxPartNums.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtboxPartNums_KeyDown);
             // 
             // label1
             // 
@@ -142,7 +131,7 @@
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.dgvMain);
             this.splitContainerMain.Size = new System.Drawing.Size(595, 261);
-            this.splitContainerMain.SplitterDistance = 198;
+            this.splitContainerMain.SplitterDistance = 167;
             this.splitContainerMain.TabIndex = 6;
             // 
             // dgvMain
@@ -158,7 +147,7 @@
             this.dgvMain.ReadOnly = true;
             this.dgvMain.RowTemplate.Height = 23;
             this.dgvMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMain.Size = new System.Drawing.Size(393, 261);
+            this.dgvMain.Size = new System.Drawing.Size(424, 261);
             this.dgvMain.TabIndex = 0;
             // 
             // toolStrip1
@@ -210,6 +199,17 @@
             this.toolBtnSearch.Text = "搜索";
             this.toolBtnSearch.Click += new System.EventHandler(this.toolBtnSearch_Click);
             // 
+            // rtboxPartNums
+            // 
+            this.rtboxPartNums.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtboxPartNums.Location = new System.Drawing.Point(3, 3);
+            this.rtboxPartNums.Multiline = true;
+            this.rtboxPartNums.Name = "rtboxPartNums";
+            this.rtboxPartNums.Size = new System.Drawing.Size(161, 255);
+            this.rtboxPartNums.TabIndex = 0;
+            // 
             // FormUpdatePart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -226,6 +226,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "物料批量更新";
             this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel1.PerformLayout();
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
@@ -238,8 +239,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox rtboxPartNums;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonUpdate;
         private System.Diagnostics.Process processSync;
@@ -253,5 +252,6 @@
         private System.Windows.Forms.ToolStripButton toolBtnAdd;
         private System.Windows.Forms.ToolStripButton toolBtnSearch;
         private System.Windows.Forms.ToolStripTextBox toolTboxPartNum;
+        private System.Windows.Forms.TextBox rtboxPartNums;
     }
 }

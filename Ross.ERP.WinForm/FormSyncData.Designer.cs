@@ -39,11 +39,13 @@
             this.linkLabel_ImBooErr = new System.Windows.Forms.LinkLabel();
             this.linkLabel_ImBomErr = new System.Windows.Forms.LinkLabel();
             this.linkLabel_SyncReport = new System.Windows.Forms.LinkLabel();
+            this.cBoxOnlySyncPart = new System.Windows.Forms.CheckBox();
+            this.buttonStartSync = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBarSync
             // 
-            this.progressBarSync.Location = new System.Drawing.Point(12, 63);
+            this.progressBarSync.Location = new System.Drawing.Point(12, 34);
             this.progressBarSync.Name = "progressBarSync";
             this.progressBarSync.Size = new System.Drawing.Size(460, 26);
             this.progressBarSync.TabIndex = 0;
@@ -64,7 +66,7 @@
             // labelSyncStatus
             // 
             this.labelSyncStatus.AutoSize = true;
-            this.labelSyncStatus.Location = new System.Drawing.Point(13, 30);
+            this.labelSyncStatus.Location = new System.Drawing.Point(10, 9);
             this.labelSyncStatus.Name = "labelSyncStatus";
             this.labelSyncStatus.Size = new System.Drawing.Size(131, 12);
             this.labelSyncStatus.TabIndex = 2;
@@ -89,7 +91,7 @@
             // labelPecent
             // 
             this.labelPecent.AutoSize = true;
-            this.labelPecent.Location = new System.Drawing.Point(425, 30);
+            this.labelPecent.Location = new System.Drawing.Point(426, 9);
             this.labelPecent.Name = "labelPecent";
             this.labelPecent.Size = new System.Drawing.Size(17, 12);
             this.labelPecent.TabIndex = 3;
@@ -101,7 +103,7 @@
             this.linkLabel_ImPartErr.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel_ImPartErr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel_ImPartErr.LinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabel_ImPartErr.Location = new System.Drawing.Point(12, 107);
+            this.linkLabel_ImPartErr.Location = new System.Drawing.Point(14, 74);
             this.linkLabel_ImPartErr.Name = "linkLabel_ImPartErr";
             this.linkLabel_ImPartErr.Size = new System.Drawing.Size(109, 17);
             this.linkLabel_ImPartErr.TabIndex = 4;
@@ -114,7 +116,7 @@
             this.linkLabel_ImBooErr.AutoSize = true;
             this.linkLabel_ImBooErr.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel_ImBooErr.LinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabel_ImBooErr.Location = new System.Drawing.Point(159, 107);
+            this.linkLabel_ImBooErr.Location = new System.Drawing.Point(161, 74);
             this.linkLabel_ImBooErr.Name = "linkLabel_ImBooErr";
             this.linkLabel_ImBooErr.Size = new System.Drawing.Size(114, 17);
             this.linkLabel_ImBooErr.TabIndex = 5;
@@ -127,7 +129,7 @@
             this.linkLabel_ImBomErr.AutoSize = true;
             this.linkLabel_ImBomErr.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel_ImBomErr.LinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabel_ImBomErr.Location = new System.Drawing.Point(12, 133);
+            this.linkLabel_ImBomErr.Location = new System.Drawing.Point(14, 100);
             this.linkLabel_ImBomErr.Name = "linkLabel_ImBomErr";
             this.linkLabel_ImBomErr.Size = new System.Drawing.Size(116, 17);
             this.linkLabel_ImBomErr.TabIndex = 6;
@@ -140,7 +142,7 @@
             this.linkLabel_SyncReport.AutoSize = true;
             this.linkLabel_SyncReport.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel_SyncReport.LinkColor = System.Drawing.SystemColors.Highlight;
-            this.linkLabel_SyncReport.Location = new System.Drawing.Point(159, 133);
+            this.linkLabel_SyncReport.Location = new System.Drawing.Point(161, 100);
             this.linkLabel_SyncReport.Name = "linkLabel_SyncReport";
             this.linkLabel_SyncReport.Size = new System.Drawing.Size(109, 17);
             this.linkLabel_SyncReport.TabIndex = 7;
@@ -148,11 +150,33 @@
             this.linkLabel_SyncReport.Text = "Sync Data Report";
             this.linkLabel_SyncReport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_SyncReport_LinkClicked);
             // 
+            // cBoxOnlySyncPart
+            // 
+            this.cBoxOnlySyncPart.AutoSize = true;
+            this.cBoxOnlySyncPart.Location = new System.Drawing.Point(17, 154);
+            this.cBoxOnlySyncPart.Name = "cBoxOnlySyncPart";
+            this.cBoxOnlySyncPart.Size = new System.Drawing.Size(108, 16);
+            this.cBoxOnlySyncPart.TabIndex = 8;
+            this.cBoxOnlySyncPart.Text = "只同步物料档案";
+            this.cBoxOnlySyncPart.UseVisualStyleBackColor = true;
+            // 
+            // buttonStartSync
+            // 
+            this.buttonStartSync.Location = new System.Drawing.Point(316, 154);
+            this.buttonStartSync.Name = "buttonStartSync";
+            this.buttonStartSync.Size = new System.Drawing.Size(75, 30);
+            this.buttonStartSync.TabIndex = 9;
+            this.buttonStartSync.Text = "开始同步";
+            this.buttonStartSync.UseVisualStyleBackColor = true;
+            this.buttonStartSync.Click += new System.EventHandler(this.buttonStartSync_Click);
+            // 
             // FormSyncData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 196);
+            this.Controls.Add(this.buttonStartSync);
+            this.Controls.Add(this.cBoxOnlySyncPart);
             this.Controls.Add(this.linkLabel_SyncReport);
             this.Controls.Add(this.linkLabel_ImBomErr);
             this.Controls.Add(this.linkLabel_ImBooErr);
@@ -185,5 +209,7 @@
         private System.Windows.Forms.LinkLabel linkLabel_ImBooErr;
         private System.Windows.Forms.LinkLabel linkLabel_ImBomErr;
         private System.Windows.Forms.LinkLabel linkLabel_SyncReport;
+        private System.Windows.Forms.CheckBox cBoxOnlySyncPart;
+        private System.Windows.Forms.Button buttonStartSync;
     }
 }

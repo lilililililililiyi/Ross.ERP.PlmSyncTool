@@ -192,6 +192,18 @@
     <Compile Include="FormModPsw.Designer.cs">
       <DependentUpon>FormModPsw.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMTLCompute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMTLCompute.Designer.cs">
+      <DependentUpon>FormMTLCompute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPartCombined.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPartCombined.Designer.cs">
+      <DependentUpon>FormPartCombined.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPartRev.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +258,12 @@
     <EmbeddedResource Include="FormModPsw.resx">
       <DependentUpon>FormModPsw.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMTLCompute.resx">
+      <DependentUpon>FormMTLCompute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPartCombined.resx">
+      <DependentUpon>FormPartCombined.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPartRev.resx">
       <DependentUpon>FormPartRev.cs</DependentUpon>
     </EmbeddedResource>
@@ -274,8 +292,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReportGYLC.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\Ross.ERP.PlmSyncTool.ExportDto.MBOO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -384,6 +404,7 @@
     <None Include="Resources\check.png" />
     <None Include="Resources\loading.gif" />
     <None Include="Resources\bar.gif" />
+    <None Include="Resources\compute.png" />
     <Content Include="ross.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

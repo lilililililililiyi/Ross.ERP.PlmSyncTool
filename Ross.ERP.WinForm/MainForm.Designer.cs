@@ -53,6 +53,7 @@
             this.ToolStripMenuItem_ChkBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_UpdateParts = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_UnitBug = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_dwg = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropbtnErp = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItem_GetERPBOM = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_GetBOMJob = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +62,11 @@
             this.ToolStripMenuItem_BOMPartSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_PartSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_BomCompare = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_ERPMoreMtl = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_MtlCompute = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropBtnProject = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItem_Rev = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_AddPartRev = new System.Windows.Forms.ToolStripMenuItem();
             this.toolDropExport = new System.Windows.Forms.ToolStripDropDownButton();
             this.BtnExport_NewPart = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnExport_NewBom = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +74,7 @@
             this.toolBtnReport = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItem_MtlAna = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_PartPlan = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_NewPartCheck = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBtnStart = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItem_Start = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Stop = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +96,11 @@
             this.SLabelPlmDbName = new System.Windows.Forms.ToolStripStatusLabel();
             this.SLabelUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxRev = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tboxKeywd = new System.Windows.Forms.TextBox();
             this.labelload = new System.Windows.Forms.Label();
             this.lblAutoUpdate = new System.Windows.Forms.Label();
             this.dtPicker = new System.Windows.Forms.DateTimePicker();
@@ -146,7 +156,7 @@
             this.dataGridViewMain.Name = "dataGridViewMain";
             this.dataGridViewMain.ReadOnly = true;
             this.dataGridViewMain.RowTemplate.Height = 23;
-            this.dataGridViewMain.Size = new System.Drawing.Size(556, 345);
+            this.dataGridViewMain.Size = new System.Drawing.Size(624, 345);
             this.dataGridViewMain.TabIndex = 0;
             this.dataGridViewMain.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewMain_CellMouseDoubleClick);
             this.dataGridViewMain.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewMain_CellMouseDown);
@@ -168,8 +178,8 @@
             // splitCont.Panel2
             // 
             this.splitCont.Panel2.Controls.Add(this.tabControlMain);
-            this.splitCont.Size = new System.Drawing.Size(778, 377);
-            this.splitCont.SplitterDistance = 205;
+            this.splitCont.Size = new System.Drawing.Size(870, 377);
+            this.splitCont.SplitterDistance = 229;
             this.splitCont.SplitterWidth = 3;
             this.splitCont.TabIndex = 6;
             // 
@@ -180,7 +190,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(205, 377);
+            this.panel2.Size = new System.Drawing.Size(229, 377);
             this.panel2.TabIndex = 0;
             // 
             // tabControlLeft
@@ -193,7 +203,7 @@
             this.tabControlLeft.Multiline = true;
             this.tabControlLeft.Name = "tabControlLeft";
             this.tabControlLeft.SelectedIndex = 0;
-            this.tabControlLeft.Size = new System.Drawing.Size(205, 377);
+            this.tabControlLeft.Size = new System.Drawing.Size(229, 377);
             this.tabControlLeft.TabIndex = 0;
             // 
             // tabPage3
@@ -203,7 +213,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(197, 351);
+            this.tabPage3.Size = new System.Drawing.Size(221, 351);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "设计BOM";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -215,7 +225,7 @@
             this.treeViewLeft.Font = new System.Drawing.Font("宋体", 9F);
             this.treeViewLeft.Location = new System.Drawing.Point(3, 3);
             this.treeViewLeft.Name = "treeViewLeft";
-            this.treeViewLeft.Size = new System.Drawing.Size(191, 345);
+            this.treeViewLeft.Size = new System.Drawing.Size(215, 345);
             this.treeViewLeft.TabIndex = 0;
             this.treeViewLeft.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewLeft_NodeMouseClick);
             // 
@@ -226,7 +236,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(197, 351);
+            this.tabPage4.Size = new System.Drawing.Size(221, 351);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "制造BOM";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -238,7 +248,7 @@
             this.treeViewLeftBot.Font = new System.Drawing.Font("宋体", 9F);
             this.treeViewLeftBot.Location = new System.Drawing.Point(3, 3);
             this.treeViewLeftBot.Name = "treeViewLeftBot";
-            this.treeViewLeftBot.Size = new System.Drawing.Size(191, 345);
+            this.treeViewLeftBot.Size = new System.Drawing.Size(215, 345);
             this.treeViewLeftBot.TabIndex = 0;
             // 
             // tabControlMain
@@ -250,7 +260,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(570, 377);
+            this.tabControlMain.Size = new System.Drawing.Size(638, 377);
             this.tabControlMain.TabIndex = 1;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
@@ -260,7 +270,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(562, 351);
+            this.tabPage1.Size = new System.Drawing.Size(630, 351);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "数据列表";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -271,7 +281,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(562, 351);
+            this.tabPage2.Size = new System.Drawing.Size(630, 351);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "新BOM";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -289,7 +299,7 @@
             this.DGVBOM.Name = "DGVBOM";
             this.DGVBOM.ReadOnly = true;
             this.DGVBOM.RowTemplate.Height = 23;
-            this.DGVBOM.Size = new System.Drawing.Size(556, 345);
+            this.DGVBOM.Size = new System.Drawing.Size(624, 345);
             this.DGVBOM.TabIndex = 0;
             this.DGVBOM.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVBOM_CellMouseDoubleClick);
             this.DGVBOM.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVBOM_CellMouseDown);
@@ -308,7 +318,7 @@
             this.toolDropSetting});
             this.toolStripTop.Location = new System.Drawing.Point(0, 0);
             this.toolStripTop.Name = "toolStripTop";
-            this.toolStripTop.Size = new System.Drawing.Size(784, 25);
+            this.toolStripTop.Size = new System.Drawing.Size(876, 25);
             this.toolStripTop.TabIndex = 4;
             this.toolStripTop.Text = "toolStrip1";
             // 
@@ -349,7 +359,8 @@
             this.BtnGetNewMTL,
             this.ToolStripMenuItem_ChkBOM,
             this.ToolStripMenuItem_UpdateParts,
-            this.ToolStripMenuItem_UnitBug});
+            this.ToolStripMenuItem_UnitBug,
+            this.ToolStripMenuItem_dwg});
             this.toolDropBtnPlm.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.PLM;
             this.toolDropBtnPlm.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolDropBtnPlm.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
@@ -405,6 +416,13 @@
             this.ToolStripMenuItem_UnitBug.Text = "物料单位异常";
             this.ToolStripMenuItem_UnitBug.Click += new System.EventHandler(this.ToolStripMenuItem_UnitBug_Click);
             // 
+            // ToolStripMenuItem_dwg
+            // 
+            this.ToolStripMenuItem_dwg.Name = "ToolStripMenuItem_dwg";
+            this.ToolStripMenuItem_dwg.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_dwg.Text = "新二维图查询";
+            this.ToolStripMenuItem_dwg.Click += new System.EventHandler(this.ToolStripMenuItem_dwg_Click);
+            // 
             // toolDropbtnErp
             // 
             this.toolDropbtnErp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -413,7 +431,9 @@
             this.ToolStripMenuItem_PartOpr,
             this.ToolStripMenuItem_BOMPartSearch,
             this.ToolStripMenuItem_PartSearch,
-            this.ToolStripMenuItem_BomCompare});
+            this.ToolStripMenuItem_BomCompare,
+            this.ToolStripMenuItem_ERPMoreMtl,
+            this.ToolStripMenuItem_MtlCompute});
             this.toolDropbtnErp.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
             this.toolDropbtnErp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolDropbtnErp.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
@@ -478,11 +498,27 @@
             this.ToolStripMenuItem_BomCompare.Text = "BOM对比";
             this.ToolStripMenuItem_BomCompare.Click += new System.EventHandler(this.ToolStripMenuItem_BomCompare_Click);
             // 
+            // ToolStripMenuItem_ERPMoreMtl
+            // 
+            this.ToolStripMenuItem_ERPMoreMtl.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.File;
+            this.ToolStripMenuItem_ERPMoreMtl.Name = "ToolStripMenuItem_ERPMoreMtl";
+            this.ToolStripMenuItem_ERPMoreMtl.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_ERPMoreMtl.Text = "ERP多余物料";
+            this.ToolStripMenuItem_ERPMoreMtl.Click += new System.EventHandler(this.ToolStripMenuItem_ERPMoreMtl_Click);
+            // 
+            // ToolStripMenuItem_MtlCompute
+            // 
+            this.ToolStripMenuItem_MtlCompute.Name = "ToolStripMenuItem_MtlCompute";
+            this.ToolStripMenuItem_MtlCompute.Size = new System.Drawing.Size(154, 22);
+            this.ToolStripMenuItem_MtlCompute.Text = "材料定额计算";
+            this.ToolStripMenuItem_MtlCompute.Click += new System.EventHandler(this.ToolStripMenuItem_MtlCompute_Click);
+            // 
             // toolDropBtnProject
             // 
             this.toolDropBtnProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolDropBtnProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Rev});
+            this.ToolStripMenuItem_Rev,
+            this.ToolStripMenuItem_AddPartRev});
             this.toolDropBtnProject.Image = ((System.Drawing.Image)(resources.GetObject("toolDropBtnProject.Image")));
             this.toolDropBtnProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolDropBtnProject.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
@@ -494,9 +530,16 @@
             // 
             this.ToolStripMenuItem_Rev.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.operate;
             this.ToolStripMenuItem_Rev.Name = "ToolStripMenuItem_Rev";
-            this.ToolStripMenuItem_Rev.Size = new System.Drawing.Size(124, 22);
+            this.ToolStripMenuItem_Rev.Size = new System.Drawing.Size(130, 22);
             this.ToolStripMenuItem_Rev.Text = "工程设计";
             this.ToolStripMenuItem_Rev.Click += new System.EventHandler(this.ToolStripMenuItem_Rev_Click);
+            // 
+            // ToolStripMenuItem_AddPartRev
+            // 
+            this.ToolStripMenuItem_AddPartRev.Name = "ToolStripMenuItem_AddPartRev";
+            this.ToolStripMenuItem_AddPartRev.Size = new System.Drawing.Size(130, 22);
+            this.ToolStripMenuItem_AddPartRev.Text = "生成BOM";
+            this.ToolStripMenuItem_AddPartRev.Click += new System.EventHandler(this.ToolStripMenuItem_AddPartRev_Click);
             // 
             // toolDropExport
             // 
@@ -543,7 +586,8 @@
             this.toolBtnReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolBtnReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_MtlAna,
-            this.ToolStripMenuItem_PartPlan});
+            this.ToolStripMenuItem_PartPlan,
+            this.ToolStripMenuItem_NewPartCheck});
             this.toolBtnReport.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReport.Image")));
             this.toolBtnReport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnReport.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
@@ -553,19 +597,27 @@
             // 
             // ToolStripMenuItem_MtlAna
             // 
-            this.ToolStripMenuItem_MtlAna.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.chart;
+            this.ToolStripMenuItem_MtlAna.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
             this.ToolStripMenuItem_MtlAna.Name = "ToolStripMenuItem_MtlAna";
-            this.ToolStripMenuItem_MtlAna.Size = new System.Drawing.Size(124, 22);
+            this.ToolStripMenuItem_MtlAna.Size = new System.Drawing.Size(136, 22);
             this.ToolStripMenuItem_MtlAna.Text = "物料分析";
             this.ToolStripMenuItem_MtlAna.Click += new System.EventHandler(this.ToolStripMenuItem_MtlAna_Click);
             // 
             // ToolStripMenuItem_PartPlan
             // 
-            this.ToolStripMenuItem_PartPlan.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.model;
+            this.ToolStripMenuItem_PartPlan.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
             this.ToolStripMenuItem_PartPlan.Name = "ToolStripMenuItem_PartPlan";
-            this.ToolStripMenuItem_PartPlan.Size = new System.Drawing.Size(124, 22);
+            this.ToolStripMenuItem_PartPlan.Size = new System.Drawing.Size(136, 22);
             this.ToolStripMenuItem_PartPlan.Text = "物料计划";
             this.ToolStripMenuItem_PartPlan.Click += new System.EventHandler(this.ToolStripMenuItem_PartPlan_Click);
+            // 
+            // ToolStripMenuItem_NewPartCheck
+            // 
+            this.ToolStripMenuItem_NewPartCheck.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.excel;
+            this.ToolStripMenuItem_NewPartCheck.Name = "ToolStripMenuItem_NewPartCheck";
+            this.ToolStripMenuItem_NewPartCheck.Size = new System.Drawing.Size(136, 22);
+            this.ToolStripMenuItem_NewPartCheck.Text = "新物料查询";
+            this.ToolStripMenuItem_NewPartCheck.Click += new System.EventHandler(this.ToolStripMenuItem_NewPartCheck_Click);
             // 
             // toolBtnStart
             // 
@@ -666,7 +718,7 @@
             // tboxPartNum
             // 
             this.tboxPartNum.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tboxPartNum.Location = new System.Drawing.Point(7, 5);
+            this.tboxPartNum.Location = new System.Drawing.Point(43, 5);
             this.tboxPartNum.Name = "tboxPartNum";
             this.tboxPartNum.Size = new System.Drawing.Size(120, 23);
             this.tboxPartNum.TabIndex = 0;
@@ -680,7 +732,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 462);
+            this.panel1.Size = new System.Drawing.Size(876, 462);
             this.panel1.TabIndex = 7;
             // 
             // statusStripBot
@@ -695,7 +747,7 @@
             this.SLabelUser});
             this.statusStripBot.Location = new System.Drawing.Point(0, 440);
             this.statusStripBot.Name = "statusStripBot";
-            this.statusStripBot.Size = new System.Drawing.Size(784, 22);
+            this.statusStripBot.Size = new System.Drawing.Size(876, 22);
             this.statusStripBot.TabIndex = 8;
             this.statusStripBot.Text = "statusStrip1";
             // 
@@ -756,6 +808,11 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.SystemColors.Control;
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.textBoxRev);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.tboxKeywd);
             this.panel3.Controls.Add(this.labelload);
             this.panel3.Controls.Add(this.lblAutoUpdate);
             this.panel3.Controls.Add(this.dtPicker);
@@ -764,14 +821,57 @@
             this.panel3.Controls.Add(this.tboxPartNum);
             this.panel3.Location = new System.Drawing.Point(0, 26);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(784, 32);
+            this.panel3.Size = new System.Drawing.Size(876, 32);
             this.panel3.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(328, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "版本";
+            // 
+            // textBoxRev
+            // 
+            this.textBoxRev.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxRev.Location = new System.Drawing.Point(363, 5);
+            this.textBoxRev.Name = "textBoxRev";
+            this.textBoxRev.Size = new System.Drawing.Size(52, 23);
+            this.textBoxRev.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(167, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "关键词";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "编码";
+            // 
+            // tboxKeywd
+            // 
+            this.tboxKeywd.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tboxKeywd.Location = new System.Drawing.Point(211, 5);
+            this.tboxKeywd.Name = "tboxKeywd";
+            this.tboxKeywd.Size = new System.Drawing.Size(100, 23);
+            this.tboxKeywd.TabIndex = 10;
             // 
             // labelload
             // 
             this.labelload.AutoSize = true;
             this.labelload.Image = global::Ross.ERP.PlmSyncTool.Properties.Resources.bar;
-            this.labelload.Location = new System.Drawing.Point(349, 10);
+            this.labelload.Location = new System.Drawing.Point(644, 12);
             this.labelload.Name = "labelload";
             this.labelload.Size = new System.Drawing.Size(29, 12);
             this.labelload.TabIndex = 9;
@@ -782,18 +882,18 @@
             this.lblAutoUpdate.AutoSize = true;
             this.lblAutoUpdate.Font = new System.Drawing.Font("Verdana", 8F);
             this.lblAutoUpdate.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblAutoUpdate.Location = new System.Drawing.Point(384, 9);
+            this.lblAutoUpdate.Location = new System.Drawing.Point(679, 11);
             this.lblAutoUpdate.Name = "lblAutoUpdate";
-            this.lblAutoUpdate.Size = new System.Drawing.Size(108, 13);
+            this.lblAutoUpdate.Size = new System.Drawing.Size(69, 13);
             this.lblAutoUpdate.TabIndex = 8;
-            this.lblAutoUpdate.Text = "Cache updating...";
+            this.lblAutoUpdate.Text = "Updating...";
             // 
             // dtPicker
             // 
             this.dtPicker.CustomFormat = "yyyy-MM-dd";
             this.dtPicker.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtPicker.Location = new System.Drawing.Point(219, 4);
+            this.dtPicker.Location = new System.Drawing.Point(514, 6);
             this.dtPicker.Name = "dtPicker";
             this.dtPicker.Size = new System.Drawing.Size(124, 22);
             this.dtPicker.TabIndex = 7;
@@ -808,7 +908,7 @@
             this.BtnImportNewBOM.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.BtnImportNewBOM.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnImportNewBOM.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnImportNewBOM.Location = new System.Drawing.Point(687, 3);
+            this.BtnImportNewBOM.Location = new System.Drawing.Point(779, 3);
             this.BtnImportNewBOM.Name = "BtnImportNewBOM";
             this.BtnImportNewBOM.Size = new System.Drawing.Size(85, 25);
             this.BtnImportNewBOM.TabIndex = 3;
@@ -825,7 +925,7 @@
             this.BtnGetNewPartMtl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnGetNewPartMtl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnGetNewPartMtl.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGetNewPartMtl.Location = new System.Drawing.Point(133, 4);
+            this.BtnGetNewPartMtl.Location = new System.Drawing.Point(444, 5);
             this.BtnGetNewPartMtl.Name = "BtnGetNewPartMtl";
             this.BtnGetNewPartMtl.Size = new System.Drawing.Size(64, 24);
             this.BtnGetNewPartMtl.TabIndex = 2;
@@ -957,7 +1057,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 462);
+            this.ClientSize = new System.Drawing.Size(876, 462);
             this.Controls.Add(this.toolStripTop);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1078,6 +1178,16 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_GetBOMJob;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_GetBOMDesign;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_BomCompare;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ERPMoreMtl;
+        private System.Windows.Forms.TextBox tboxKeywd;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_MtlCompute;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_NewPartCheck;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_AddPartRev;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxRev;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_dwg;
     }
 }
 
